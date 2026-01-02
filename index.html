@@ -397,6 +397,12 @@
             transform: translateY(-5px);
         }
         
+        .submit-btn:disabled {
+            background: var(--gray);
+            cursor: not-allowed;
+            transform: none;
+        }
+        
         .form-note {
             background-color: rgba(0, 217, 255, 0.1);
             border-left: 4px solid var(--secondary);
@@ -413,6 +419,28 @@
             margin-top: 20px;
             border-radius: 0 5px 5px 0;
             font-size: 0.9rem;
+        }
+        
+        /* Success Message */
+        .success-message {
+            background-color: rgba(0, 255, 157, 0.1);
+            border: 2px solid var(--success);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .success-message i {
+            color: var(--success);
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .success-message h3 {
+            color: var(--success);
+            margin-bottom: 15px;
         }
         
         /* Gallery */
@@ -702,90 +730,98 @@
                     <h3>Zamów komputer na zamówienie</h3>
                     <p>Wybierz komponenty, a my złożymy dla Ciebie idealny komputer. Usługa składania jest obowiązkowa.</p>
                     
-                    <div class="form-group">
-                        <label for="order-name">Imię i nazwisko *</label>
-                        <input type="text" id="order-name" required>
-                    </div>
-                    
-                    <div class="form-row">
+                    <form id="orderForm">
                         <div class="form-group">
-                            <label for="order-email">Adres e-mail *</label>
-                            <input type="email" id="order-email" required>
+                            <label for="order-name">Imię i nazwisko *</label>
+                            <input type="text" id="order-name" name="name" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="order-email">Adres e-mail *</label>
+                                <input type="email" id="order-email" name="email" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="order-phone">Numer telefonu</label>
+                                <input type="tel" id="order-phone" name="phone">
+                            </div>
+                        </div>
+                        
+                        <h4>Wybierz komponenty:</h4>
+                        
+                        <!-- Procesor -->
+                        <div class="component-category">
+                            <h4>Procesor (CPU)</h4>
+                            <div class="component-grid" id="cpu-selection">
+                                <!-- CPU options will be loaded by JavaScript -->
+                            </div>
+                        </div>
+                        
+                        <!-- Karta graficzna -->
+                        <div class="component-category">
+                            <h4>Karta graficzna (GPU)</h4>
+                            <div class="component-grid" id="gpu-selection">
+                                <!-- GPU options will be loaded by JavaScript -->
+                            </div>
+                        </div>
+                        
+                        <!-- Płyta główna -->
+                        <div class="component-category">
+                            <h4>Płyta główna</h4>
+                            <div class="component-grid" id="motherboard-selection">
+                                <!-- Motherboard options will be loaded by JavaScript -->
+                            </div>
+                        </div>
+                        
+                        <!-- Pamięć RAM -->
+                        <div class="component-category">
+                            <h4>Pamięć RAM</h4>
+                            <div class="component-grid" id="ram-selection">
+                                <!-- RAM options will be loaded by JavaScript -->
+                            </div>
+                        </div>
+                        
+                        <!-- Dysk -->
+                        <div class="component-category">
+                            <h4>Dysk twardy / SSD</h4>
+                            <div class="component-grid" id="storage-selection">
+                                <!-- Storage options will be loaded by JavaScript -->
+                            </div>
+                        </div>
+                        
+                        <!-- Obowiązkowa usługa składania -->
+                        <div class="assembly-service">
+                            <h4>Usługa składania komputera (obowiązkowa)</h4>
+                            <p>Profesjonalny montaż wszystkich komponentów, okablowanie, testy stabilności i optymalizacja.</p>
+                            <div class="assembly-price">Cena: 399 zł</div>
                         </div>
                         
                         <div class="form-group">
-                            <label for="order-phone">Numer telefonu</label>
-                            <input type="tel" id="order-phone">
+                            <label for="order-notes">Dodatkowe uwagi / preferencje</label>
+                            <textarea id="order-notes" name="notes" rows="4" placeholder="Opisz szczególne wymagania, preferowany budżet, termin realizacji, etc."></textarea>
                         </div>
-                    </div>
-                    
-                    <h4>Wybierz komponenty:</h4>
-                    
-                    <!-- Procesor -->
-                    <div class="component-category">
-                        <h4>Procesor (CPU)</h4>
-                        <div class="component-grid" id="cpu-selection">
-                            <!-- CPU options will be loaded by JavaScript -->
+                        
+                        <div class="location-info">
+                            <p><i class="fas fa-map-marker-alt"></i> <strong>Obszar działania:</strong> Kaliszkowice Kaliskie i okolice (+30km). Dojazd płatny w zależności od odległości.</p>
                         </div>
-                    </div>
-                    
-                    <!-- Karta graficzna -->
-                    <div class="component-category">
-                        <h4>Karta graficzna (GPU)</h4>
-                        <div class="component-grid" id="gpu-selection">
-                            <!-- GPU options will be loaded by JavaScript -->
+                        
+                        <div class="total-price">
+                            Łączna cena: <span id="total-price">399 zł</span>
                         </div>
-                    </div>
-                    
-                    <!-- Płyta główna -->
-                    <div class="component-category">
-                        <h4>Płyta główna</h4>
-                        <div class="component-grid" id="motherboard-selection">
-                            <!-- Motherboard options will be loaded by JavaScript -->
+                        
+                        <button type="submit" class="submit-btn" id="order-submit">Wyślij zamówienie</button>
+                        
+                        <div class="success-message" id="order-success">
+                            <i class="fas fa-check-circle"></i>
+                            <h3>Dziękujemy za złożenie zamówienia!</h3>
+                            <p>Odezwiemy się do Ciebie na podany adres e-mail w ciągu 24 godzin.</p>
                         </div>
-                    </div>
-                    
-                    <!-- Pamięć RAM -->
-                    <div class="component-category">
-                        <h4>Pamięć RAM</h4>
-                        <div class="component-grid" id="ram-selection">
-                            <!-- RAM options will be loaded by JavaScript -->
+                        
+                        <div class="form-note">
+                            <p><i class="fas fa-info-circle"></i> Po kliknięciu przycisku formularz zostanie wysłany bezpośrednio do nas. Nie musisz nic więcej robić - skontaktujemy się z Tobą.</p>
                         </div>
-                    </div>
-                    
-                    <!-- Dysk -->
-                    <div class="component-category">
-                        <h4>Dysk twardy / SSD</h4>
-                        <div class="component-grid" id="storage-selection">
-                            <!-- Storage options will be loaded by JavaScript -->
-                        </div>
-                    </div>
-                    
-                    <!-- Obowiązkowa usługa składania -->
-                    <div class="assembly-service">
-                        <h4>Usługa składania komputera (obowiązkowa)</h4>
-                        <p>Profesjonalny montaż wszystkich komponentów, okablowanie, testy stabilności i optymalizacja.</p>
-                        <div class="assembly-price">Cena: 399 zł</div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="order-notes">Dodatkowe uwagi / preferencje</label>
-                        <textarea id="order-notes" rows="4" placeholder="Opisz szczególne wymagania, preferowany budżet, termin realizacji, etc."></textarea>
-                    </div>
-                    
-                    <div class="location-info">
-                        <p><i class="fas fa-map-marker-alt"></i> <strong>Obszar działania:</strong> Kaliszkowice Kaliskie i okolice (+30km). Dojazd płatny w zależności od odległości.</p>
-                    </div>
-                    
-                    <div class="total-price">
-                        Łączna cena: <span id="total-price">399 zł</span>
-                    </div>
-                    
-                    <button class="submit-btn" id="order-submit">Wyślij zamówienie mailem</button>
-                    
-                    <div class="form-note">
-                        <p><i class="fas fa-info-circle"></i> Po kliknięciu przycisku wyświetli się potwierdzenie, a następnie otworzy Twoja skrzynka pocztowa z wypełnionym formularzem. Wyślij wiadomość, aby przesłać nam zamówienie.</p>
-                    </div>
+                    </form>
                 </div>
                 
                 <!-- Składanie PC -->
@@ -793,64 +829,72 @@
                     <h3>Składanie PC (tylko składanie)</h3>
                     <p>Masz już komponenty, ale nie wiesz jak je złożyć? Zajmiemy się profesjonalnym montażem Twojego komputera. Podaj szczegóły, a przygotujemy wycenę.</p>
                     
-                    <div class="form-group">
-                        <label for="assembly-name">Imię i nazwisko *</label>
-                        <input type="text" id="assembly-name" required>
-                    </div>
-                    
-                    <div class="form-row">
+                    <form id="assemblyForm">
                         <div class="form-group">
-                            <label for="assembly-email">Adres e-mail *</label>
-                            <input type="email" id="assembly-email" required>
+                            <label for="assembly-name">Imię i nazwisko *</label>
+                            <input type="text" id="assembly-name" name="name" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="assembly-email">Adres e-mail *</label>
+                                <input type="email" id="assembly-email" name="email" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="assembly-phone">Numer telefonu *</label>
+                                <input type="tel" id="assembly-phone" name="phone" required>
+                            </div>
                         </div>
                         
                         <div class="form-group">
-                            <label for="assembly-phone">Numer telefonu *</label>
-                            <input type="tel" id="assembly-phone" required>
+                            <label for="assembly-type">Typ komputera *</label>
+                            <select id="assembly-type" name="type" required>
+                                <option value="">Wybierz typ</option>
+                                <option value="gaming">Gamingowy</option>
+                                <option value="office">Biurowy</option>
+                                <option value="workstation">Stacja robocza</option>
+                                <option value="homeserver">Serwer domowy</option>
+                                <option value="other">Inny</option>
+                            </select>
                         </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="assembly-type">Typ komputera *</label>
-                        <select id="assembly-type" required>
-                            <option value="">Wybierz typ</option>
-                            <option value="gaming">Gamingowy</option>
-                            <option value="office">Biurowy</option>
-                            <option value="workstation">Stacja robocza</option>
-                            <option value="homeserver">Serwer domowy</option>
-                            <option value="other">Inny</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="assembly-components">Opisz posiadane komponenty *</label>
-                        <textarea id="assembly-components" rows="6" required placeholder="Opisz szczegółowo jakie komponenty posiadasz (procesor, karta graficzna, płyta główna, pamięć RAM, dyski, zasilacz, obudowa, chłodzenie, etc.)"></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="assembly-requirements">Czego oczekujesz od składania? *</label>
-                        <textarea id="assembly-requirements" rows="4" required placeholder="Opisz czego oczekujesz (montaż komponentów, okablowanie, instalacja systemu, sterowników, testy, etc.)"></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="assembly-budget">Przewidywany budżet na usługę (opcjonalnie)</label>
-                        <input type="text" id="assembly-budget" placeholder="np. 300-500 zł">
-                    </div>
-                    
-                    <div class="location-info">
-                        <p><i class="fas fa-map-marker-alt"></i> <strong>Obszar działania:</strong> Kaliszkowice Kaliskie i okolice (+30km). Dojazd płatny w zależności od odległości.</p>
-                    </div>
-                    
-                    <div class="assembly-service">
-                        <h4>Cena podstawowa usługi składania: od 250 zł</h4>
-                        <p>Cena finalna zależy od złożoności konfiguracji, ilości komponentów i dodatkowych usług (instalacja systemu, sterowników, etc.).</p>
-                    </div>
-                    
-                    <button class="submit-btn" id="assembly-submit">Wyślij zapytanie o składanie mailem</button>
-                    
-                    <div class="form-note">
-                        <p><i class="fas fa-info-circle"></i> Po kliknięciu przycisku wyświetli się potwierdzenie, a następnie otworzy Twoja skrzynka pocztowa z wypełnionym formularzem. Wyślij wiadomość, aby przesłać nam zapytanie o składanie komputera.</p>
-                    </div>
+                        
+                        <div class="form-group">
+                            <label for="assembly-components">Opisz posiadane komponenty *</label>
+                            <textarea id="assembly-components" name="components" rows="6" required placeholder="Opisz szczegółowo jakie komponenty posiadasz (procesor, karta graficzna, płyta główna, pamięć RAM, dyski, zasilacz, obudowa, chłodzenie, etc.)"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="assembly-requirements">Czego oczekujesz od składania? *</label>
+                            <textarea id="assembly-requirements" name="requirements" rows="4" required placeholder="Opisz czego oczekujesz (montaż komponentów, okablowanie, instalacja systemu, sterowników, testy, etc.)"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="assembly-budget">Przewidywany budżet na usługę (opcjonalnie)</label>
+                            <input type="text" id="assembly-budget" name="budget" placeholder="np. 300-500 zł">
+                        </div>
+                        
+                        <div class="location-info">
+                            <p><i class="fas fa-map-marker-alt"></i> <strong>Obszar działania:</strong> Kaliszkowice Kaliskie i okolice (+30km). Dojazd płatny w zależności od odległości.</p>
+                        </div>
+                        
+                        <div class="assembly-service">
+                            <h4>Cena podstawowa usługi składania: od 250 zł</h4>
+                            <p>Cena finalna zależy od złożoności konfiguracji, ilości komponentów i dodatkowych usług (instalacja systemu, sterowników, etc.).</p>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn" id="assembly-submit">Wyślij zapytanie o składanie</button>
+                        
+                        <div class="success-message" id="assembly-success">
+                            <i class="fas fa-check-circle"></i>
+                            <h3>Dziękujemy za zgłoszenie zapytania o składanie komputera!</h3>
+                            <p>Odezwiemy się do Ciebie na podany adres e-mail w ciągu 24 godzin.</p>
+                        </div>
+                        
+                        <div class="form-note">
+                            <p><i class="fas fa-info-circle"></i> Po kliknięciu przycisku formularz zostanie wysłany bezpośrednio do nas. Nie musisz nic więcej robić - skontaktujemy się z Tobą.</p>
+                        </div>
+                    </form>
                 </div>
                 
                 <!-- Napraw komputer -->
@@ -858,53 +902,61 @@
                     <h3>Naprawa komputera</h3>
                     <p>Opisz problem z Twoim komputerem, a skontaktujemy się w celu diagnozy i wyceny naprawy.</p>
                     
-                    <div class="form-group">
-                        <label for="repair-name">Imię i nazwisko *</label>
-                        <input type="text" id="repair-name" required>
-                    </div>
-                    
-                    <div class="form-row">
+                    <form id="repairForm">
                         <div class="form-group">
-                            <label for="repair-email">Adres e-mail *</label>
-                            <input type="email" id="repair-email" required>
+                            <label for="repair-name">Imię i nazwisko *</label>
+                            <input type="text" id="repair-name" name="name" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="repair-email">Adres e-mail *</label>
+                                <input type="email" id="repair-email" name="email" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="repair-phone">Numer telefonu *</label>
+                                <input type="tel" id="repair-phone" name="phone" required>
+                            </div>
                         </div>
                         
                         <div class="form-group">
-                            <label for="repair-phone">Numer telefonu *</label>
-                            <input type="tel" id="repair-phone" required>
+                            <label for="repair-type">Typ urządzenia *</label>
+                            <select id="repair-type" name="type" required>
+                                <option value="">Wybierz typ urządzenia</option>
+                                <option value="desktop">Komputer stacjonarny (PC)</option>
+                                <option value="laptop">Laptop</option>
+                                <option value="workstation">Stacja robocza</option>
+                                <option value="other">Inne</option>
+                            </select>
                         </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="repair-type">Typ urządzenia *</label>
-                        <select id="repair-type" required>
-                            <option value="">Wybierz typ urządzenia</option>
-                            <option value="desktop">Komputer stacjonarny (PC)</option>
-                            <option value="laptop">Laptop</option>
-                            <option value="workstation">Stacja robocza</option>
-                            <option value="other">Inne</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="repair-problem">Opisz problem *</label>
-                        <textarea id="repair-problem" rows="6" required placeholder="Opisz szczegółowo problem, objawy, kiedy się pojawił, czy podejmowałeś już próby naprawy, etc."></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="repair-specs">Konfiguracja / podzespoły (opcjonalnie)</label>
-                        <textarea id="repair-specs" rows="4" placeholder="Podaj specyfikację komputera jeśli znasz (procesor, karta graficzna, itp.)"></textarea>
-                    </div>
-                    
-                    <div class="location-info">
-                        <p><i class="fas fa-map-marker-alt"></i> <strong>Obszar działania:</strong> Kaliszkowice Kaliskie i okolice (+30km). Dojazd płatny w zależności od odległości.</p>
-                    </div>
-                    
-                    <button class="submit-btn" id="repair-submit">Wyślij zapytanie o naprawę mailem</button>
-                    
-                    <div class="form-note">
-                        <p><i class="fas fa-info-circle"></i> Po kliknięciu przycisku wyświetli się potwierdzenie, a następnie otworzy Twoja skrzynka pocztowa z wypełnionym formularzem. Wyślij wiadomość, aby przesłać nam zapytanie o naprawę.</p>
-                    </div>
+                        
+                        <div class="form-group">
+                            <label for="repair-problem">Opisz problem *</label>
+                            <textarea id="repair-problem" name="problem" rows="6" required placeholder="Opisz szczegółowo problem, objawy, kiedy się pojawił, czy podejmowałeś już próby naprawy, etc."></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="repair-specs">Konfiguracja / podzespoły (opcjonalnie)</label>
+                            <textarea id="repair-specs" name="specs" rows="4" placeholder="Podaj specyfikację komputera jeśli znasz (procesor, karta graficzna, itp.)"></textarea>
+                        </div>
+                        
+                        <div class="location-info">
+                            <p><i class="fas fa-map-marker-alt"></i> <strong>Obszar działania:</strong> Kaliszkowice Kaliskie i okolice (+30km). Dojazd płatny w zależności od odległości.</p>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn" id="repair-submit">Wyślij zapytanie o naprawę</button>
+                        
+                        <div class="success-message" id="repair-success">
+                            <i class="fas fa-check-circle"></i>
+                            <h3>Dziękujemy za zgłoszenie problemu!</h3>
+                            <p>Odezwiemy się do Ciebie na podany adres e-mail w ciągu 24 godzin.</p>
+                        </div>
+                        
+                        <div class="form-note">
+                            <p><i class="fas fa-info-circle"></i> Po kliknięciu przycisku formularz zostanie wysłany bezpośrednio do nas. Nie musisz nic więcej robić - skontaktujemy się z Tobą.</p>
+                        </div>
+                    </form>
                 </div>
                 
                 <!-- Zboostuj komputer -->
@@ -912,55 +964,63 @@
                     <h3>Optymalizacja i przyspieszenie komputera</h3>
                     <p>Opisz swoją konfigurację i czego oczekujesz od optymalizacji. Przygotujemy ofertę dostosowaną do Twoich potrzeb.</p>
                     
-                    <div class="form-group">
-                        <label for="boost-name">Imię i nazwisko *</label>
-                        <input type="text" id="boost-name" required>
-                    </div>
-                    
-                    <div class="form-row">
+                    <form id="boostForm">
                         <div class="form-group">
-                            <label for="boost-email">Adres e-mail *</label>
-                            <input type="email" id="boost-email" required>
+                            <label for="boost-name">Imię i nazwisko *</label>
+                            <input type="text" id="boost-name" name="name" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="boost-email">Adres e-mail *</label>
+                                <input type="email" id="boost-email" name="email" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="boost-phone">Numer telefonu</label>
+                                <input type="tel" id="boost-phone" name="phone">
+                            </div>
                         </div>
                         
                         <div class="form-group">
-                            <label for="boost-phone">Numer telefonu</label>
-                            <input type="tel" id="boost-phone">
+                            <label for="boost-purpose">Główne przeznaczenie komputera *</label>
+                            <select id="boost-purpose" name="purpose" required>
+                                <option value="">Wybierz przeznaczenie</option>
+                                <option value="gaming">Gry komputerowe</option>
+                                <option value="work">Praca biurowa</option>
+                                <option value="design">Projektowanie graficzne / 3D</option>
+                                <option value="video">Montaż wideo</option>
+                                <option value="streaming">Streaming / transmisje</option>
+                                <option value="other">Inne</option>
+                            </select>
                         </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="boost-purpose">Główne przeznaczenie komputera *</label>
-                        <select id="boost-purpose" required>
-                            <option value="">Wybierz przeznaczenie</option>
-                            <option value="gaming">Gry komputerowe</option>
-                            <option value="work">Praca biurowa</option>
-                            <option value="design">Projektowanie graficzne / 3D</option>
-                            <option value="video">Montaż wideo</option>
-                            <option value="streaming">Streaming / transmisje</option>
-                            <option value="other">Inne</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="boost-specs">Aktualna konfiguracja komputera *</label>
-                        <textarea id="boost-specs" rows="6" required placeholder="Opisz szczegółowo konfigurację swojego komputera (procesor, karta graficzna, pamięć RAM, dyski, płyta główna, zasilacz, etc.)"></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="boost-expectations">Czego oczekujesz od optymalizacji? *</label>
-                        <textarea id="boost-expectations" rows="4" required placeholder="Opisz co chcesz osiągnąć (większa płynność w grach, szybsze renderowanie, ogólne przyspieszenie systemu, etc.)"></textarea>
-                    </div>
-                    
-                    <div class="location-info">
-                        <p><i class="fas fa-map-marker-alt"></i> <strong>Obszar działania:</strong> Kaliszkowice Kaliskie i okolice (+30km). Dojazd płatny w zależności od odległości.</p>
-                    </div>
-                    
-                    <button class="submit-btn" id="boost-submit">Wyślij zapytanie o optymalizację mailem</button>
-                    
-                    <div class="form-note">
-                        <p><i class="fas fa-info-circle"></i> Po kliknięciu przycisku wyświetli się potwierdzenie, a następnie otworzy Twoja skrzynka pocztowa z wypełnionym formularzem. Wyślij wiadomość, aby przesłać nam zapytanie o optymalizację.</p>
-                    </div>
+                        
+                        <div class="form-group">
+                            <label for="boost-specs">Aktualna konfiguracja komputera *</label>
+                            <textarea id="boost-specs" name="specs" rows="6" required placeholder="Opisz szczegółowo konfigurację swojego komputera (procesor, karta graficzna, pamięć RAM, dyski, płyta główna, zasilacz, etc.)"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="boost-expectations">Czego oczekujesz od optymalizacji? *</label>
+                            <textarea id="boost-expectations" name="expectations" rows="4" required placeholder="Opisz co chcesz osiągnąć (większa płynność w grach, szybsze renderowanie, ogólne przyspieszenie systemu, etc.)"></textarea>
+                        </div>
+                        
+                        <div class="location-info">
+                            <p><i class="fas fa-map-marker-alt"></i> <strong>Obszar działania:</strong> Kaliszkowice Kaliskie i okolice (+30km). Dojazd płatny w zależności od odległości.</p>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn" id="boost-submit">Wyślij zapytanie o optymalizację</button>
+                        
+                        <div class="success-message" id="boost-success">
+                            <i class="fas fa-check-circle"></i>
+                            <h3>Dziękujemy za zgłoszenie zapytania o optymalizację!</h3>
+                            <p>Odezwiemy się do Ciebie na podany adres e-mail w ciągu 24 godzin.</p>
+                        </div>
+                        
+                        <div class="form-note">
+                            <p><i class="fas fa-info-circle"></i> Po kliknięciu przycisku formularz zostanie wysłany bezpośrednio do nas. Nie musisz nic więcej robić - skontaktujemy się z Tobą.</p>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -1007,25 +1067,31 @@
                     <form id="contactForm">
                         <div class="form-group">
                             <label for="name">Imię i nazwisko</label>
-                            <input type="text" id="name" required>
+                            <input type="text" id="name" name="name" required>
                         </div>
                         
                         <div class="form-group">
                             <label for="email">Adres e-mail</label>
-                            <input type="email" id="email" required>
+                            <input type="email" id="email" name="email" required>
                         </div>
                         
                         <div class="form-group">
                             <label for="phone">Numer telefonu</label>
-                            <input type="tel" id="phone">
+                            <input type="tel" id="phone" name="phone">
                         </div>
                         
                         <div class="form-group">
                             <label for="message">Wiadomość</label>
-                            <textarea id="message" rows="5" required></textarea>
+                            <textarea id="message" name="message" rows="5" required></textarea>
                         </div>
                         
                         <button type="submit" class="submit-btn">Wyślij wiadomość</button>
+                        
+                        <div class="success-message" id="contact-success">
+                            <i class="fas fa-check-circle"></i>
+                            <h3>Dziękujemy za wiadomość!</h3>
+                            <p>Odezwiemy się do Ciebie na podany adres e-mail w ciągu 24 godzin.</p>
+                        </div>
                     </form>
                 </div>
                 
@@ -1442,251 +1508,137 @@
             
             const totalPrice = assemblyPrice + componentsPrice;
             document.getElementById('total-price').textContent = `${totalPrice} zł`;
+            
+            // Store total price in hidden field
+            const totalPriceField = document.getElementById('total-price-field');
+            if (totalPriceField) {
+                totalPriceField.value = totalPrice;
+            }
         }
         
-        // Send order by email
-        function sendOrderByEmail() {
-            const name = document.getElementById('order-name').value;
-            const email = document.getElementById('order-email').value;
-            const phone = document.getElementById('order-phone').value;
-            const notes = document.getElementById('order-notes').value;
+        // Form submission handlers
+        function handleFormSubmission(formId, successMessageId, serviceType) {
+            const form = document.getElementById(formId);
+            const submitBtn = form.querySelector('.submit-btn');
+            const successMessage = document.getElementById(successMessageId);
             
-            if (!name || !email) {
-                alert('Proszę wypełnić wymagane pola: imię i nazwisko oraz e-mail.');
-                return;
-            }
-            
-            // Prepare email content
-            const subject = `Zamówienie komputera - ${name}`;
-            
-            let body = `Zamówienie komputera na zamówienie:\n\n`;
-            body += `Imię i nazwisko: ${name}\n`;
-            body += `E-mail: ${email}\n`;
-            body += `Telefon: ${phone || 'nie podano'}\n\n`;
-            
-            body += `Wybrane komponenty:\n`;
-            
-            // Add selected components
-            let totalPrice = 399; // Assembly price
-            for (const [type, id] of Object.entries(selectedComponents)) {
-                if (id) {
-                    let componentArray, typeName;
-                    switch(type) {
-                        case 'cpu': 
-                            componentArray = components.cpus;
-                            typeName = 'Procesor';
-                            break;
-                        case 'gpu': 
-                            componentArray = components.gpus;
-                            typeName = 'Karta graficzna';
-                            break;
-                        case 'motherboard': 
-                            componentArray = components.motherboards;
-                            typeName = 'Płyta główna';
-                            break;
-                        case 'ram': 
-                            componentArray = components.rams;
-                            typeName = 'Pamięć RAM';
-                            break;
-                        case 'storage': 
-                            componentArray = components.storages;
-                            typeName = 'Dysk';
-                            break;
-                    }
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                // For order form, collect component data
+                let formData = new FormData(this);
+                
+                if (serviceType === 'order') {
+                    // Add selected components to form data
+                    let componentsText = '';
+                    let totalPrice = 399;
                     
-                    if (componentArray) {
-                        const component = componentArray.find(c => c.id === id);
-                        if (component) {
-                            body += `${typeName}: ${component.name} - ${component.price} zł\n`;
-                            totalPrice += component.price;
+                    for (const [type, id] of Object.entries(selectedComponents)) {
+                        if (id) {
+                            let componentArray, typeName;
+                            switch(type) {
+                                case 'cpu': 
+                                    componentArray = components.cpus;
+                                    typeName = 'Procesor';
+                                    break;
+                                case 'gpu': 
+                                    componentArray = components.gpus;
+                                    typeName = 'Karta graficzna';
+                                    break;
+                                case 'motherboard': 
+                                    componentArray = components.motherboards;
+                                    typeName = 'Płyta główna';
+                                    break;
+                                case 'ram': 
+                                    componentArray = components.rams;
+                                    typeName = 'Pamięć RAM';
+                                    break;
+                                case 'storage': 
+                                    componentArray = components.storages;
+                                    typeName = 'Dysk';
+                                    break;
+                            }
+                            
+                            if (componentArray) {
+                                const component = componentArray.find(c => c.id === id);
+                                if (component) {
+                                    componentsText += `${typeName}: ${component.name} - ${component.price} zł\n`;
+                                    totalPrice += component.price;
+                                }
+                            }
                         }
                     }
+                    
+                    formData.append('components', componentsText);
+                    formData.append('totalPrice', totalPrice + ' zł');
+                    formData.append('serviceType', 'Zamówienie komputera');
+                } else if (serviceType === 'assembly') {
+                    formData.append('serviceType', 'Składanie PC');
+                } else if (serviceType === 'repair') {
+                    formData.append('serviceType', 'Naprawa komputera');
+                } else if (serviceType === 'boost') {
+                    formData.append('serviceType', 'Optymalizacja komputera');
+                } else if (serviceType === 'contact') {
+                    formData.append('serviceType', 'Wiadomość kontaktowa');
                 }
-            }
-            
-            body += `Usługa składania: 399 zł\n\n`;
-            body += `Łączna cena: ${totalPrice} zł\n\n`;
-            
-            if (notes) {
-                body += `Dodatkowe uwagi:\n${notes}\n\n`;
-            }
-            
-            body += `---\nWiadomość wysłana ze strony PC Serwis`;
-            
-            // Show confirmation message first
-            alert('Dziękujemy za złożenie zamówienia! Odezwiemy się do Ciebie na podany adres e-mail w ciągu 24 godzin.');
-            
-            // Create mailto link
-            const mailtoLink = `mailto:konradkomputery0@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-            
-            // Open email client after a short delay
-            setTimeout(() => {
-                window.open(mailtoLink, '_blank');
-            }, 500);
-        }
-        
-        // Send assembly request by email
-        function sendAssemblyByEmail() {
-            const name = document.getElementById('assembly-name').value;
-            const email = document.getElementById('assembly-email').value;
-            const phone = document.getElementById('assembly-phone').value;
-            const type = document.getElementById('assembly-type').value;
-            const components = document.getElementById('assembly-components').value;
-            const requirements = document.getElementById('assembly-requirements').value;
-            const budget = document.getElementById('assembly-budget').value;
-            
-            if (!name || !email || !phone || !type || !components || !requirements) {
-                alert('Proszę wypełnić wszystkie wymagane pola.');
-                return;
-            }
-            
-            // Prepare email content
-            const subject = `Zapytanie o składanie PC - ${name}`;
-            
-            let body = `Zapytanie o usługę składania komputera (klient posiada komponenty):\n\n`;
-            body += `Imię i nazwisko: ${name}\n`;
-            body += `E-mail: ${email}\n`;
-            body += `Telefon: ${phone}\n`;
-            body += `Typ komputera: ${document.getElementById('assembly-type').options[document.getElementById('assembly-type').selectedIndex].text}\n\n`;
-            
-            body += `Posiadane komponenty:\n${components}\n\n`;
-            body += `Wymagania dotyczące składania:\n${requirements}\n\n`;
-            
-            if (budget) {
-                body += `Przewidywany budżet: ${budget}\n\n`;
-            }
-            
-            body += `---\nWiadomość wysłana ze strony PC Serwis`;
-            
-            // Show confirmation message first
-            alert('Dziękujemy za zgłoszenie zapytania o składanie komputera! Odezwiemy się do Ciebie na podany adres e-mail w ciągu 24 godzin.');
-            
-            // Create mailto link
-            const mailtoLink = `mailto:konradkomputery0@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-            
-            // Open email client after a short delay
-            setTimeout(() => {
-                window.open(mailtoLink, '_blank');
-            }, 500);
-        }
-        
-        // Send repair request by email
-        function sendRepairByEmail() {
-            const name = document.getElementById('repair-name').value;
-            const email = document.getElementById('repair-email').value;
-            const phone = document.getElementById('repair-phone').value;
-            const type = document.getElementById('repair-type').value;
-            const problem = document.getElementById('repair-problem').value;
-            const specs = document.getElementById('repair-specs').value;
-            
-            if (!name || !email || !phone || !type || !problem) {
-                alert('Proszę wypełnić wszystkie wymagane pola.');
-                return;
-            }
-            
-            // Prepare email content
-            const subject = `Zapytanie o naprawę - ${name}`;
-            
-            let body = `Zapytanie o naprawę komputera:\n\n`;
-            body += `Imię i nazwisko: ${name}\n`;
-            body += `E-mail: ${email}\n`;
-            body += `Telefon: ${phone}\n`;
-            body += `Typ urządzenia: ${document.getElementById('repair-type').options[document.getElementById('repair-type').selectedIndex].text}\n\n`;
-            
-            body += `Opis problemu:\n${problem}\n\n`;
-            
-            if (specs) {
-                body += `Konfiguracja:\n${specs}\n\n`;
-            }
-            
-            body += `---\nWiadomość wysłana ze strony PC Serwis`;
-            
-            // Show confirmation message first
-            alert('Dziękujemy za zgłoszenie problemu! Odezwiemy się do Ciebie na podany adres e-mail w ciągu 24 godzin.');
-            
-            // Create mailto link
-            const mailtoLink = `mailto:konradkomputery0@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-            
-            // Open email client after a short delay
-            setTimeout(() => {
-                window.open(mailtoLink, '_blank');
-            }, 500);
-        }
-        
-        // Send boost request by email
-        function sendBoostByEmail() {
-            const name = document.getElementById('boost-name').value;
-            const email = document.getElementById('boost-email').value;
-            const phone = document.getElementById('boost-phone').value;
-            const purpose = document.getElementById('boost-purpose').value;
-            const specs = document.getElementById('boost-specs').value;
-            const expectations = document.getElementById('boost-expectations').value;
-            
-            if (!name || !email || !purpose || !specs || !expectations) {
-                alert('Proszę wypełnić wszystkie wymagane pola.');
-                return;
-            }
-            
-            // Prepare email content
-            const subject = `Zapytanie o optymalizację - ${name}`;
-            
-            let body = `Zapytanie o optymalizację komputera:\n\n`;
-            body += `Imię i nazwisko: ${name}\n`;
-            body += `E-mail: ${email}\n`;
-            body += `Telefon: ${phone || 'nie podano'}\n`;
-            body += `Przeznaczenie: ${document.getElementById('boost-purpose').options[document.getElementById('boost-purpose').selectedIndex].text}\n\n`;
-            
-            body += `Aktualna konfiguracja:\n${specs}\n\n`;
-            body += `Oczekiwania od optymalizacji:\n${expectations}\n\n`;
-            
-            body += `---\nWiadomość wysłana ze strony PC Serwis`;
-            
-            // Show confirmation message first
-            alert('Dziękujemy za zgłoszenie zapytania o optymalizację! Odezwiemy się do Ciebie na podany adres e-mail w ciągu 24 godzin.');
-            
-            // Create mailto link
-            const mailtoLink = `mailto:konradkomputery0@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-            
-            // Open email client after a short delay
-            setTimeout(() => {
-                window.open(mailtoLink, '_blank');
-            }, 500);
-        }
-        
-        // Send contact form by email
-        function sendContactByEmail() {
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const phone = document.getElementById('phone').value;
-            const message = document.getElementById('message').value;
-            
-            if (!name || !email || !message) {
-                alert('Proszę wypełnić wymagane pola: imię i nazwisko, e-mail i wiadomość.');
-                return;
-            }
-            
-            // Prepare email content
-            const subject = `Wiadomość ze strony - ${name}`;
-            
-            let body = `Wiadomość ze strony PC Serwis:\n\n`;
-            body += `Imię i nazwisko: ${name}\n`;
-            body += `E-mail: ${email}\n`;
-            body += `Telefon: ${phone || 'nie podano'}\n\n`;
-            
-            body += `Wiadomość:\n${message}\n\n`;
-            
-            body += `---\nWiadomość wysłana ze strony PC Serwis`;
-            
-            // Show confirmation message first
-            alert('Dziękujemy za wiadomość! Odezwiemy się do Ciebie na podany adres e-mail w ciągu 24 godzin.');
-            
-            // Create mailto link
-            const mailtoLink = `mailto:konradkomputery0@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-            
-            // Open email client after a short delay
-            setTimeout(() => {
-                window.open(mailtoLink, '_blank');
-            }, 500);
+                
+                // Disable submit button
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Wysyłanie...';
+                
+                try {
+                    // Send form data using Formspree
+                    // Replace with your Formspree endpoint
+                    const response = await fetch('https://formspree.io/f/mpwnagal', {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        // Show success message
+                        successMessage.style.display = 'block';
+                        form.reset();
+                        
+                        // Reset selected components for order form
+                        if (serviceType === 'order') {
+                            Object.keys(selectedComponents).forEach(key => {
+                                selectedComponents[key] = null;
+                            });
+                            
+                            // Deselect all component cards
+                            document.querySelectorAll('.component-card').forEach(card => {
+                                card.classList.remove('selected');
+                            });
+                            
+                            // Uncheck all radio buttons
+                            document.querySelectorAll('.component-card input[type="radio"]').forEach(radio => {
+                                radio.checked = false;
+                            });
+                            
+                            updateTotalPrice();
+                        }
+                        
+                        // Scroll to success message
+                        successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    } else {
+                        alert('Wystąpił błąd podczas wysyłania formularza. Spróbuj ponownie.');
+                    }
+                } catch (error) {
+                    alert('Wystąpił błąd podczas wysyłania formularza. Spróbuj ponownie.');
+                    console.error('Form submission error:', error);
+                } finally {
+                    // Re-enable submit button
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = serviceType === 'order' ? 'Wyślij zamówienie' : 
+                                           serviceType === 'assembly' ? 'Wyślij zapytanie o składanie' :
+                                           serviceType === 'repair' ? 'Wyślij zapytanie o naprawę' :
+                                           serviceType === 'boost' ? 'Wyślij zapytanie o optymalizację' :
+                                           'Wyślij wiadomość';
+                }
+            });
         }
         
         // Initialize
@@ -1694,35 +1646,23 @@
             initializeComponentSelection();
             updateTotalPrice();
             
-            // Order submit
-            document.getElementById('order-submit').addEventListener('click', (e) => {
-                e.preventDefault();
-                sendOrderByEmail();
-            });
+            // Add hidden field for total price in order form
+            const orderForm = document.getElementById('orderForm');
+            if (orderForm) {
+                const totalPriceField = document.createElement('input');
+                totalPriceField.type = 'hidden';
+                totalPriceField.name = 'totalPrice';
+                totalPriceField.id = 'total-price-field';
+                totalPriceField.value = '399 zł';
+                orderForm.appendChild(totalPriceField);
+            }
             
-            // Assembly submit
-            document.getElementById('assembly-submit').addEventListener('click', (e) => {
-                e.preventDefault();
-                sendAssemblyByEmail();
-            });
-            
-            // Repair submit
-            document.getElementById('repair-submit').addEventListener('click', (e) => {
-                e.preventDefault();
-                sendRepairByEmail();
-            });
-            
-            // Boost submit
-            document.getElementById('boost-submit').addEventListener('click', (e) => {
-                e.preventDefault();
-                sendBoostByEmail();
-            });
-            
-            // Contact submit
-            document.getElementById('contactForm').addEventListener('submit', (e) => {
-                e.preventDefault();
-                sendContactByEmail();
-            });
+            // Initialize form submissions
+            handleFormSubmission('orderForm', 'order-success', 'order');
+            handleFormSubmission('assemblyForm', 'assembly-success', 'assembly');
+            handleFormSubmission('repairForm', 'repair-success', 'repair');
+            handleFormSubmission('boostForm', 'boost-success', 'boost');
+            handleFormSubmission('contactForm', 'contact-success', 'contact');
         });
     </script>
 </body>
