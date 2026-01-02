@@ -201,7 +201,7 @@
         .services-tabs {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 15px;
             margin-bottom: 40px;
             flex-wrap: wrap;
         }
@@ -210,15 +210,19 @@
             background-color: var(--gray);
             border: none;
             color: var(--light);
-            padding: 20px 40px;
+            padding: 18px 30px;
             border-radius: 10px;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s;
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
+            flex: 1;
+            min-width: 200px;
+            max-width: 250px;
+            justify-content: center;
         }
         
         .service-tab:hover {
@@ -232,7 +236,7 @@
         }
         
         .service-tab i {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
         }
         
         .service-form-container {
@@ -402,6 +406,15 @@
             font-size: 0.9rem;
         }
         
+        .location-info {
+            background-color: rgba(255, 0, 94, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 0 5px 5px 0;
+            font-size: 0.9rem;
+        }
+        
         /* Gallery */
         .gallery-grid {
             display: grid;
@@ -558,6 +571,10 @@
             .form-row {
                 grid-template-columns: 1fr;
             }
+            
+            .service-tab {
+                max-width: 100%;
+            }
         }
         
         @media (max-width: 768px) {
@@ -650,7 +667,7 @@
     <section class="hero" id="home">
         <div class="container">
             <h1>Profesjonalny serwis komputerowy</h1>
-            <p>Specjalizujemy się w składaniu komputerów na zamówienie, naprawach i optymalizacji systemów. Doświadczony zespół, rzetelna diagnoza i solidne wykonanie.</p>
+            <p>Specjalizujemy się w składaniu komputerów na zamówienie, naprawach i optymalizacji systemów. Działamy w Kaliszkowicach Kaliskich i okolicach (+30km). Doświadczony zespół, rzetelna diagnoza i solidne wykonanie.</p>
             <a href="#services" class="cta-button">Wybierz usługę</a>
         </div>
     </section>
@@ -665,8 +682,12 @@
                     <i class="fas fa-desktop"></i>
                     <span>Zamów komputer</span>
                 </button>
-                <button class="service-tab" data-service="repair">
+                <button class="service-tab" data-service="assembly">
                     <i class="fas fa-tools"></i>
+                    <span>Składanie PC</span>
+                </button>
+                <button class="service-tab" data-service="repair">
+                    <i class="fas fa-medkit"></i>
                     <span>Napraw komputer</span>
                 </button>
                 <button class="service-tab" data-service="boost">
@@ -752,6 +773,10 @@
                         <textarea id="order-notes" rows="4" placeholder="Opisz szczególne wymagania, preferowany budżet, termin realizacji, etc."></textarea>
                     </div>
                     
+                    <div class="location-info">
+                        <p><i class="fas fa-map-marker-alt"></i> <strong>Obszar działania:</strong> Kaliszkowice Kaliskie i okolice (+30km). Dojazd płatny w zależności od odległości.</p>
+                    </div>
+                    
                     <div class="total-price">
                         Łączna cena: <span id="total-price">399 zł</span>
                     </div>
@@ -760,6 +785,71 @@
                     
                     <div class="form-note">
                         <p><i class="fas fa-info-circle"></i> Po kliknięciu przycisku wyświetli się potwierdzenie, a następnie otworzy Twoja skrzynka pocztowa z wypełnionym formularzem. Wyślij wiadomość, aby przesłać nam zamówienie.</p>
+                    </div>
+                </div>
+                
+                <!-- Składanie PC -->
+                <div class="service-form" id="assembly-form">
+                    <h3>Składanie PC (tylko składanie)</h3>
+                    <p>Masz już komponenty, ale nie wiesz jak je złożyć? Zajmiemy się profesjonalnym montażem Twojego komputera. Podaj szczegóły, a przygotujemy wycenę.</p>
+                    
+                    <div class="form-group">
+                        <label for="assembly-name">Imię i nazwisko *</label>
+                        <input type="text" id="assembly-name" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="assembly-email">Adres e-mail *</label>
+                            <input type="email" id="assembly-email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="assembly-phone">Numer telefonu *</label>
+                            <input type="tel" id="assembly-phone" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="assembly-type">Typ komputera *</label>
+                        <select id="assembly-type" required>
+                            <option value="">Wybierz typ</option>
+                            <option value="gaming">Gamingowy</option>
+                            <option value="office">Biurowy</option>
+                            <option value="workstation">Stacja robocza</option>
+                            <option value="homeserver">Serwer domowy</option>
+                            <option value="other">Inny</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="assembly-components">Opisz posiadane komponenty *</label>
+                        <textarea id="assembly-components" rows="6" required placeholder="Opisz szczegółowo jakie komponenty posiadasz (procesor, karta graficzna, płyta główna, pamięć RAM, dyski, zasilacz, obudowa, chłodzenie, etc.)"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="assembly-requirements">Czego oczekujesz od składania? *</label>
+                        <textarea id="assembly-requirements" rows="4" required placeholder="Opisz czego oczekujesz (montaż komponentów, okablowanie, instalacja systemu, sterowników, testy, etc.)"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="assembly-budget">Przewidywany budżet na usługę (opcjonalnie)</label>
+                        <input type="text" id="assembly-budget" placeholder="np. 300-500 zł">
+                    </div>
+                    
+                    <div class="location-info">
+                        <p><i class="fas fa-map-marker-alt"></i> <strong>Obszar działania:</strong> Kaliszkowice Kaliskie i okolice (+30km). Dojazd płatny w zależności od odległości.</p>
+                    </div>
+                    
+                    <div class="assembly-service">
+                        <h4>Cena podstawowa usługi składania: od 250 zł</h4>
+                        <p>Cena finalna zależy od złożoności konfiguracji, ilości komponentów i dodatkowych usług (instalacja systemu, sterowników, etc.).</p>
+                    </div>
+                    
+                    <button class="submit-btn" id="assembly-submit">Wyślij zapytanie o składanie mailem</button>
+                    
+                    <div class="form-note">
+                        <p><i class="fas fa-info-circle"></i> Po kliknięciu przycisku wyświetli się potwierdzenie, a następnie otworzy Twoja skrzynka pocztowa z wypełnionym formularzem. Wyślij wiadomość, aby przesłać nam zapytanie o składanie komputera.</p>
                     </div>
                 </div>
                 
@@ -804,6 +894,10 @@
                     <div class="form-group">
                         <label for="repair-specs">Konfiguracja / podzespoły (opcjonalnie)</label>
                         <textarea id="repair-specs" rows="4" placeholder="Podaj specyfikację komputera jeśli znasz (procesor, karta graficzna, itp.)"></textarea>
+                    </div>
+                    
+                    <div class="location-info">
+                        <p><i class="fas fa-map-marker-alt"></i> <strong>Obszar działania:</strong> Kaliszkowice Kaliskie i okolice (+30km). Dojazd płatny w zależności od odległości.</p>
                     </div>
                     
                     <button class="submit-btn" id="repair-submit">Wyślij zapytanie o naprawę mailem</button>
@@ -856,6 +950,10 @@
                     <div class="form-group">
                         <label for="boost-expectations">Czego oczekujesz od optymalizacji? *</label>
                         <textarea id="boost-expectations" rows="4" required placeholder="Opisz co chcesz osiągnąć (większa płynność w grach, szybsze renderowanie, ogólne przyspieszenie systemu, etc.)"></textarea>
+                    </div>
+                    
+                    <div class="location-info">
+                        <p><i class="fas fa-map-marker-alt"></i> <strong>Obszar działania:</strong> Kaliszkowice Kaliskie i okolice (+30km). Dojazd płatny w zależności od odległości.</p>
                     </div>
                     
                     <button class="submit-btn" id="boost-submit">Wyślij zapytanie o optymalizację mailem</button>
@@ -938,8 +1036,8 @@
                         </div>
                         <div>
                             <h4>Adres serwisu</h4>
-                            <p>ul. Technologiczna 15/7<br>00-001 Warszawa</p>
-                            <p><small>(działamy na terenie całego kraju - wysyłka kurierem)</small></p>
+                            <p>Kaliszkowice Kaliskie i okolice (+30km)</p>
+                            <p><small>Działamy na terenie Kaliszkowic Kaliskich i okolic do 30km. Dojazd płatny w zależności od odległości.</small></p>
                         </div>
                     </div>
                     
@@ -972,6 +1070,19 @@
                             <h4>Czas realizacji</h4>
                             <p>Naprawy: 1-3 dni robocze</p>
                             <p>Składanie PC: 3-7 dni roboczych</p>
+                            <p>Optymalizacja: 1-2 dni robocze</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-car"></i>
+                        </div>
+                        <div>
+                            <h4>Dojazd</h4>
+                            <p>Kaliszkowice Kaliskie: bezpłatny</p>
+                            <p>Okolice do 30km: płatny (cena do uzgodnienia)</p>
+                            <p>Powyżej 30km: do indywidualnego uzgodnienia</p>
                         </div>
                     </div>
                 </div>
@@ -985,7 +1096,7 @@
             <div class="footer-content">
                 <div class="footer-about">
                     <div class="footer-logo">PC SERWIS</div>
-                    <p>Profesjonalny serwis komputerowy specjalizujący się w składaniu komputerów na zamówienie, naprawach i optymalizacji systemów. Działamy od 2015 roku.</p>
+                    <p>Profesjonalny serwis komputerowy specjalizujący się w składaniu komputerów na zamówienie, naprawach i optymalizacji systemów. Działamy na terenie Kaliszkowic Kaliskich i okolic (+30km).</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
                         <a href="#"><i class="fab fa-instagram"></i></a>
@@ -1007,6 +1118,7 @@
                     <h4>Usługi</h4>
                     <ul>
                         <li><a href="#services" data-service="order">Zamów komputer</a></li>
+                        <li><a href="#services" data-service="assembly">Składanie PC</a></li>
                         <li><a href="#services" data-service="repair">Napraw komputer</a></li>
                         <li><a href="#services" data-service="boost">Zboostuj komputer</a></li>
                     </ul>
@@ -1014,7 +1126,7 @@
             </div>
             
             <div class="copyright">
-                <p>&copy; 2023 PC Serwis - Składanie, naprawy, optymalizacja komputerów. Wszelkie prawa zastrzeżone.</p>
+                <p>&copy; 2023 PC Serwis - Składanie, naprawy, optymalizacja komputerów. Kaliszkowice Kaliskie i okolice (+30km). Wszelkie prawa zastrzeżone.</p>
             </div>
         </div>
     </footer>
@@ -1413,6 +1525,51 @@
             }, 500);
         }
         
+        // Send assembly request by email
+        function sendAssemblyByEmail() {
+            const name = document.getElementById('assembly-name').value;
+            const email = document.getElementById('assembly-email').value;
+            const phone = document.getElementById('assembly-phone').value;
+            const type = document.getElementById('assembly-type').value;
+            const components = document.getElementById('assembly-components').value;
+            const requirements = document.getElementById('assembly-requirements').value;
+            const budget = document.getElementById('assembly-budget').value;
+            
+            if (!name || !email || !phone || !type || !components || !requirements) {
+                alert('Proszę wypełnić wszystkie wymagane pola.');
+                return;
+            }
+            
+            // Prepare email content
+            const subject = `Zapytanie o składanie PC - ${name}`;
+            
+            let body = `Zapytanie o usługę składania komputera (klient posiada komponenty):\n\n`;
+            body += `Imię i nazwisko: ${name}\n`;
+            body += `E-mail: ${email}\n`;
+            body += `Telefon: ${phone}\n`;
+            body += `Typ komputera: ${document.getElementById('assembly-type').options[document.getElementById('assembly-type').selectedIndex].text}\n\n`;
+            
+            body += `Posiadane komponenty:\n${components}\n\n`;
+            body += `Wymagania dotyczące składania:\n${requirements}\n\n`;
+            
+            if (budget) {
+                body += `Przewidywany budżet: ${budget}\n\n`;
+            }
+            
+            body += `---\nWiadomość wysłana ze strony PC Serwis`;
+            
+            // Show confirmation message first
+            alert('Dziękujemy za zgłoszenie zapytania o składanie komputera! Odezwiemy się do Ciebie na podany adres e-mail w ciągu 24 godzin.');
+            
+            // Create mailto link
+            const mailtoLink = `mailto:konradkomputery0@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            
+            // Open email client after a short delay
+            setTimeout(() => {
+                window.open(mailtoLink, '_blank');
+            }, 500);
+        }
+        
         // Send repair request by email
         function sendRepairByEmail() {
             const name = document.getElementById('repair-name').value;
@@ -1541,6 +1698,12 @@
             document.getElementById('order-submit').addEventListener('click', (e) => {
                 e.preventDefault();
                 sendOrderByEmail();
+            });
+            
+            // Assembly submit
+            document.getElementById('assembly-submit').addEventListener('click', (e) => {
+                e.preventDefault();
+                sendAssemblyByEmail();
             });
             
             // Repair submit
