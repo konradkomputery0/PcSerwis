@@ -759,7 +759,7 @@
                     <button class="submit-btn" id="order-submit">Wyślij zamówienie mailem</button>
                     
                     <div class="form-note">
-                        <p><i class="fas fa-info-circle"></i> Po kliknięciu przycisku otworzy się Twoja skrzynka pocztowa z wypełnionym formularzem. Wyślij wiadomość, aby przesłać nam zamówienie.</p>
+                        <p><i class="fas fa-info-circle"></i> Po kliknięciu przycisku wyświetli się potwierdzenie, a następnie otworzy Twoja skrzynka pocztowa z wypełnionym formularzem. Wyślij wiadomość, aby przesłać nam zamówienie.</p>
                     </div>
                 </div>
                 
@@ -809,7 +809,7 @@
                     <button class="submit-btn" id="repair-submit">Wyślij zapytanie o naprawę mailem</button>
                     
                     <div class="form-note">
-                        <p><i class="fas fa-info-circle"></i> Po kliknięciu przycisku otworzy się Twoja skrzynka pocztowa z wypełnionym formularzem. Wyślij wiadomość, aby przesłać nam zapytanie o naprawę.</p>
+                        <p><i class="fas fa-info-circle"></i> Po kliknięciu przycisku wyświetli się potwierdzenie, a następnie otworzy Twoja skrzynka pocztowa z wypełnionym formularzem. Wyślij wiadomość, aby przesłać nam zapytanie o naprawę.</p>
                     </div>
                 </div>
                 
@@ -861,7 +861,7 @@
                     <button class="submit-btn" id="boost-submit">Wyślij zapytanie o optymalizację mailem</button>
                     
                     <div class="form-note">
-                        <p><i class="fas fa-info-circle"></i> Po kliknięciu przycisku otworzy się Twoja skrzynka pocztowa z wypełnionym formularzem. Wyślij wiadomość, aby przesłać nam zapytanie o optymalizację.</p>
+                        <p><i class="fas fa-info-circle"></i> Po kliknięciu przycisku wyświetli się potwierdzenie, a następnie otworzy Twoja skrzynka pocztowa z wypełnionym formularzem. Wyślij wiadomość, aby przesłać nam zapytanie o optymalizację.</p>
                     </div>
                 </div>
             </div>
@@ -1401,11 +1401,16 @@
             
             body += `---\nWiadomość wysłana ze strony PC Serwis`;
             
+            // Show confirmation message first
+            alert('Dziękujemy za złożenie zamówienia! Odezwiemy się do Ciebie na podany adres e-mail w ciągu 24 godzin.');
+            
             // Create mailto link
             const mailtoLink = `mailto:konradkomputery0@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
             
-            // Open email client
-            window.open(mailtoLink, '_blank');
+            // Open email client after a short delay
+            setTimeout(() => {
+                window.open(mailtoLink, '_blank');
+            }, 500);
         }
         
         // Send repair request by email
@@ -1439,11 +1444,16 @@
             
             body += `---\nWiadomość wysłana ze strony PC Serwis`;
             
+            // Show confirmation message first
+            alert('Dziękujemy za zgłoszenie problemu! Odezwiemy się do Ciebie na podany adres e-mail w ciągu 24 godzin.');
+            
             // Create mailto link
             const mailtoLink = `mailto:konradkomputery0@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
             
-            // Open email client
-            window.open(mailtoLink, '_blank');
+            // Open email client after a short delay
+            setTimeout(() => {
+                window.open(mailtoLink, '_blank');
+            }, 500);
         }
         
         // Send boost request by email
@@ -1474,11 +1484,16 @@
             
             body += `---\nWiadomość wysłana ze strony PC Serwis`;
             
+            // Show confirmation message first
+            alert('Dziękujemy za zgłoszenie zapytania o optymalizację! Odezwiemy się do Ciebie na podany adres e-mail w ciągu 24 godzin.');
+            
             // Create mailto link
             const mailtoLink = `mailto:konradkomputery0@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
             
-            // Open email client
-            window.open(mailtoLink, '_blank');
+            // Open email client after a short delay
+            setTimeout(() => {
+                window.open(mailtoLink, '_blank');
+            }, 500);
         }
         
         // Send contact form by email
@@ -1505,11 +1520,16 @@
             
             body += `---\nWiadomość wysłana ze strony PC Serwis`;
             
+            // Show confirmation message first
+            alert('Dziękujemy za wiadomość! Odezwiemy się do Ciebie na podany adres e-mail w ciągu 24 godzin.');
+            
             // Create mailto link
             const mailtoLink = `mailto:konradkomputery0@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
             
-            // Open email client
-            window.open(mailtoLink, '_blank');
+            // Open email client after a short delay
+            setTimeout(() => {
+                window.open(mailtoLink, '_blank');
+            }, 500);
         }
         
         // Initialize
