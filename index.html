@@ -724,7 +724,7 @@
             
             <div class="service-form-container">
                 <!-- Zamów komputer -->
-                <form class="service-form active" id="order-form" method="POST" enctype="multipart/form-data">
+                <form class="service-form active" id="order-form" action="https://formspree.io/f/mqazpdrk" method="POST">
                     <div class="success-message" id="order-success">
                         <i class="fas fa-check-circle"></i>
                         <h3>Zamówienie wysłane pomyślnie!</h3>
@@ -823,8 +823,10 @@
                         Łączna cena: <span id="total-price">399 zł</span>
                     </div>
                     
-                    <input type="hidden" name="form_type" value="order">
+                    <input type="hidden" name="form_type" value="Zamówienie komputera">
                     <input type="hidden" name="total_price" id="total-price-value" value="399">
+                    <input type="hidden" name="_subject" value="Nowe zamówienie komputera ze strony">
+                    <input type="hidden" name="_replyto" id="reply-to-email">
                     
                     <button type="submit" class="submit-btn" id="order-submit">Wyślij zamówienie</button>
                     
@@ -834,7 +836,7 @@
                 </form>
                 
                 <!-- Składanie PC -->
-                <form class="service-form" id="assembly-form" method="POST" enctype="multipart/form-data">
+                <form class="service-form" id="assembly-form" action="https://formspree.io/f/mqazpdrk" method="POST">
                     <div class="success-message" id="assembly-success">
                         <i class="fas fa-check-circle"></i>
                         <h3>Zapytanie wysłane pomyślnie!</h3>
@@ -897,7 +899,9 @@
                         <p>Cena finalna zależy od złożoności konfiguracji, ilości komponentów i dodatkowych usług (instalacja systemu, sterowników, etc.).</p>
                     </div>
                     
-                    <input type="hidden" name="form_type" value="assembly">
+                    <input type="hidden" name="form_type" value="Składanie PC">
+                    <input type="hidden" name="_subject" value="Zapytanie o składanie komputera">
+                    <input type="hidden" name="_replyto" id="assembly-replyto">
                     
                     <button type="submit" class="submit-btn" id="assembly-submit">Wyślij zapytanie o składanie</button>
                     
@@ -907,7 +911,7 @@
                 </form>
                 
                 <!-- Napraw komputer -->
-                <form class="service-form" id="repair-form" method="POST" enctype="multipart/form-data">
+                <form class="service-form" id="repair-form" action="https://formspree.io/f/mqazpdrk" method="POST">
                     <div class="success-message" id="repair-success">
                         <i class="fas fa-check-circle"></i>
                         <h3>Zapytanie wysłane pomyślnie!</h3>
@@ -959,7 +963,9 @@
                         <p><i class="fas fa-map-marker-alt"></i> <strong>Obszar działania:</strong> Kaliszkowice Kaliskie i okolice (+30km). Dojazd płatny w zależności od odległości.</p>
                     </div>
                     
-                    <input type="hidden" name="form_type" value="repair">
+                    <input type="hidden" name="form_type" value="Naprawa komputera">
+                    <input type="hidden" name="_subject" value="Zapytanie o naprawę komputera">
+                    <input type="hidden" name="_replyto" id="repair-replyto">
                     
                     <button type="submit" class="submit-btn" id="repair-submit">Wyślij zapytanie o naprawę</button>
                     
@@ -969,7 +975,7 @@
                 </form>
                 
                 <!-- Zboostuj komputer -->
-                <form class="service-form" id="boost-form" method="POST" enctype="multipart/form-data">
+                <form class="service-form" id="boost-form" action="https://formspree.io/f/mqazpdrk" method="POST">
                     <div class="success-message" id="boost-success">
                         <i class="fas fa-check-circle"></i>
                         <h3>Zapytanie wysłane pomyślnie!</h3>
@@ -1023,7 +1029,9 @@
                         <p><i class="fas fa-map-marker-alt"></i> <strong>Obszar działania:</strong> Kaliszkowice Kaliskie i okolice (+30km). Dojazd płatny w zależności od odległości.</p>
                     </div>
                     
-                    <input type="hidden" name="form_type" value="boost">
+                    <input type="hidden" name="form_type" value="Optymalizacja komputera">
+                    <input type="hidden" name="_subject" value="Zapytanie o optymalizację komputera">
+                    <input type="hidden" name="_replyto" id="boost-replyto">
                     
                     <button type="submit" class="submit-btn" id="boost-submit">Wyślij zapytanie o optymalizację</button>
                     
@@ -1072,7 +1080,7 @@
         <div class="container">
             <h2 class="section-title">Kontakt</h2>
             <div class="contact-container">
-                <form class="contact-form" id="contact-form" method="POST" enctype="multipart/form-data">
+                <form class="contact-form" id="contact-form" action="https://formspree.io/f/mqazpdrk" method="POST">
                     <div class="success-message" id="contact-success">
                         <i class="fas fa-check-circle"></i>
                         <h3>Wiadomość wysłana pomyślnie!</h3>
@@ -1099,7 +1107,9 @@
                         <textarea id="contact-message" name="message" rows="5" required></textarea>
                     </div>
                     
-                    <input type="hidden" name="form_type" value="contact">
+                    <input type="hidden" name="form_type" value="Wiadomość kontaktowa">
+                    <input type="hidden" name="_subject" value="Wiadomość ze strony PC Serwis">
+                    <input type="hidden" name="_replyto" id="contact-replyto">
                     
                     <button type="submit" class="submit-btn" id="contact-submit">Wyślij wiadomość</button>
                     
@@ -1538,84 +1548,104 @@
             document.getElementById('total-price-value').value = totalPrice;
         }
         
-        // Form submission handling
-        function handleFormSubmit(form, successMessageId) {
-            form.addEventListener('submit', async function(e) {
-                e.preventDefault();
+        // Set up form submissions
+        function setupFormSubmissions() {
+            // Order form
+            document.getElementById('order-form').addEventListener('submit', function(e) {
+                // Set reply-to email
+                const email = document.getElementById('order-email').value;
+                document.getElementById('reply-to-email').value = email;
                 
-                // Basic validation
-                const requiredFields = form.querySelectorAll('[required]');
-                let isValid = true;
-                
-                requiredFields.forEach(field => {
-                    if (!field.value.trim()) {
-                        field.style.borderColor = 'var(--accent)';
-                        isValid = false;
-                    } else {
-                        field.style.borderColor = '';
-                    }
-                });
-                
-                if (!isValid) {
-                    alert('Proszę wypełnić wszystkie wymagane pola oznaczone *');
-                    return;
-                }
-                
-                const submitBtn = form.querySelector('.submit-btn');
-                const originalText = submitBtn.textContent;
-                submitBtn.textContent = 'Wysyłanie...';
-                submitBtn.disabled = true;
-                
-                try {
-                    const formData = new FormData(form);
-                    
-                    // Add timestamp to form data
-                    formData.append('timestamp', new Date().toLocaleString());
-                    
-                    // Send form data using Fetch API
-                    const response = await fetch('#', {
-                        method: 'POST',
-                        body: formData
-                    });
-                    
-                    // For demo purposes, we'll simulate a successful submission
-                    // In production, you would handle the actual response
-                    
-                    // Show success message
-                    document.getElementById(successMessageId).classList.add('active');
-                    
+                // Show success message after form submission
+                setTimeout(() => {
+                    document.getElementById('order-success').classList.add('active');
                     // Reset form
-                    setTimeout(() => {
-                        form.reset();
-                        
-                        // Reset component selection
-                        document.querySelectorAll('.component-card').forEach(card => {
-                            card.classList.remove('selected');
-                        });
-                        
-                        // Reset selected components
-                        for (const key in selectedComponents) {
-                            selectedComponents[key] = null;
-                            document.getElementById(`selected-${key}`).value = '';
-                            document.getElementById(`selected-${key}-price`).value = '';
-                        }
-                        
-                        // Reset total price
-                        updateTotalPrice();
-                        
-                        // Hide success message after 5 seconds
-                        setTimeout(() => {
-                            document.getElementById(successMessageId).classList.remove('active');
-                        }, 5000);
-                    }, 1000);
+                    this.reset();
+                    // Reset component selection
+                    document.querySelectorAll('.component-card').forEach(card => {
+                        card.classList.remove('selected');
+                    });
+                    // Reset selected components
+                    for (const key in selectedComponents) {
+                        selectedComponents[key] = null;
+                        document.getElementById(`selected-${key}`).value = '';
+                        document.getElementById(`selected-${key}-price`).value = '';
+                    }
+                    // Reset total price
+                    updateTotalPrice();
                     
-                } catch (error) {
-                    alert('Wystąpił błąd podczas wysyłania formularza. Spróbuj ponownie.');
-                    console.error('Error:', error);
-                } finally {
-                    submitBtn.textContent = originalText;
-                    submitBtn.disabled = false;
-                }
+                    // Scroll to success message
+                    document.getElementById('order-success').scrollIntoView({ behavior: 'smooth' });
+                    
+                    // Hide success message after 5 seconds
+                    setTimeout(() => {
+                        document.getElementById('order-success').classList.remove('active');
+                    }, 5000);
+                }, 1000);
+            });
+            
+            // Assembly form
+            document.getElementById('assembly-form').addEventListener('submit', function(e) {
+                const email = document.getElementById('assembly-email').value;
+                document.getElementById('assembly-replyto').value = email;
+                
+                setTimeout(() => {
+                    document.getElementById('assembly-success').classList.add('active');
+                    this.reset();
+                    document.getElementById('assembly-success').scrollIntoView({ behavior: 'smooth' });
+                    
+                    setTimeout(() => {
+                        document.getElementById('assembly-success').classList.remove('active');
+                    }, 5000);
+                }, 1000);
+            });
+            
+            // Repair form
+            document.getElementById('repair-form').addEventListener('submit', function(e) {
+                const email = document.getElementById('repair-email').value;
+                document.getElementById('repair-replyto').value = email;
+                
+                setTimeout(() => {
+                    document.getElementById('repair-success').classList.add('active');
+                    this.reset();
+                    document.getElementById('repair-success').scrollIntoView({ behavior: 'smooth' });
+                    
+                    setTimeout(() => {
+                        document.getElementById('repair-success').classList.remove('active');
+                    }, 5000);
+                }, 1000);
+            });
+            
+            // Boost form
+            document.getElementById('boost-form').addEventListener('submit', function(e) {
+                const email = document.getElementById('boost-email').value;
+                document.getElementById('boost-replyto').value = email;
+                
+                setTimeout(() => {
+                    document.getElementById('boost-success').classList.add('active');
+                    this.reset();
+                    document.getElementById('boost-success').scrollIntoView({ behavior: 'smooth' });
+                    
+                    setTimeout(() => {
+                        document.getElementById('boost-success').classList.remove('active');
+                    }, 5000);
+                }, 1000);
+            });
+            
+            // Contact form
+            document.getElementById('contact-form').addEventListener('submit', function(e) {
+                const email = document.getElementById('contact-email').value;
+                document.getElementById('contact-replyto').value = email;
+                
+                setTimeout(() => {
+                    document.getElementById('contact-success').classList.add('active');
+                    this.reset();
+                    document.getElementById('contact-success').scrollIntoView({ behavior: 'smooth' });
+                    
+                    setTimeout(() => {
+                        document.getElementById('contact-success').classList.remove('active');
+                    }, 5000);
+                }, 1000);
             });
         }
         
@@ -1623,140 +1653,8 @@
         document.addEventListener('DOMContentLoaded', () => {
             initializeComponentSelection();
             updateTotalPrice();
-            
-            // Set up form submissions
-            handleFormSubmit(document.getElementById('order-form'), 'order-success');
-            handleFormSubmit(document.getElementById('assembly-form'), 'assembly-success');
-            handleFormSubmit(document.getElementById('repair-form'), 'repair-success');
-            handleFormSubmit(document.getElementById('boost-form'), 'boost-success');
-            handleFormSubmit(document.getElementById('contact-form'), 'contact-success');
+            setupFormSubmissions();
         });
     </script>
-    
-    <!-- PHP Script for Email Sending -->
-    <?php
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $to = "konradkomputery0@gmail.com";
-        $subject = "Nowe zgłoszenie ze strony PC Serwis";
-        
-        // Get form type
-        $form_type = $_POST['form_type'] ?? 'unknown';
-        
-        // Build email message based on form type
-        $message = "<html><body>";
-        $message .= "<h2>Nowe zgłoszenie ze strony PC Serwis</h2>";
-        $message .= "<p><strong>Typ formularza:</strong> " . htmlspecialchars($form_type) . "</p>";
-        $message .= "<p><strong>Data:</strong> " . htmlspecialchars($_POST['timestamp'] ?? date('Y-m-d H:i:s')) . "</p>";
-        $message .= "<hr>";
-        
-        switch($form_type) {
-            case 'order':
-                $subject = "Zamówienie komputera - " . $_POST['name'];
-                $message .= "<h3>Zamówienie komputera</h3>";
-                $message .= "<p><strong>Imię i nazwisko:</strong> " . htmlspecialchars($_POST['name']) . "</p>";
-                $message .= "<p><strong>E-mail:</strong> " . htmlspecialchars($_POST['email']) . "</p>";
-                $message .= "<p><strong>Telefon:</strong> " . htmlspecialchars($_POST['phone']) . "</p>";
-                $message .= "<h4>Wybrane komponenty:</h4>";
-                $message .= "<ul>";
-                if (!empty($_POST['cpu'])) {
-                    $message .= "<li><strong>Procesor:</strong> " . htmlspecialchars($_POST['cpu']) . " - " . htmlspecialchars($_POST['cpu_price']) . " zł</li>";
-                }
-                if (!empty($_POST['gpu'])) {
-                    $message .= "<li><strong>Karta graficzna:</strong> " . htmlspecialchars($_POST['gpu']) . " - " . htmlspecialchars($_POST['gpu_price']) . " zł</li>";
-                }
-                if (!empty($_POST['motherboard'])) {
-                    $message .= "<li><strong>Płyta główna:</strong> " . htmlspecialchars($_POST['motherboard']) . " - " . htmlspecialchars($_POST['motherboard_price']) . " zł</li>";
-                }
-                if (!empty($_POST['ram'])) {
-                    $message .= "<li><strong>Pamięć RAM:</strong> " . htmlspecialchars($_POST['ram']) . " - " . htmlspecialchars($_POST['ram_price']) . " zł</li>";
-                }
-                if (!empty($_POST['storage'])) {
-                    $message .= "<li><strong>Dysk:</strong> " . htmlspecialchars($_POST['storage']) . " - " . htmlspecialchars($_POST['storage_price']) . " zł</li>";
-                }
-                $message .= "</ul>";
-                $message .= "<p><strong>Usługa składania:</strong> 399 zł</p>";
-                $message .= "<p><strong>Łączna cena:</strong> " . htmlspecialchars($_POST['total_price']) . " zł</p>";
-                if (!empty($_POST['notes'])) {
-                    $message .= "<p><strong>Dodatkowe uwagi:</strong><br>" . nl2br(htmlspecialchars($_POST['notes'])) . "</p>";
-                }
-                break;
-                
-            case 'assembly':
-                $subject = "Zapytanie o składanie PC - " . $_POST['name'];
-                $message .= "<h3>Zapytanie o składanie komputera</h3>";
-                $message .= "<p><strong>Imię i nazwisko:</strong> " . htmlspecialchars($_POST['name']) . "</p>";
-                $message .= "<p><strong>E-mail:</strong> " . htmlspecialchars($_POST['email']) . "</p>";
-                $message .= "<p><strong>Telefon:</strong> " . htmlspecialchars($_POST['phone']) . "</p>";
-                $message .= "<p><strong>Typ komputera:</strong> " . htmlspecialchars($_POST['computer_type']) . "</p>";
-                $message .= "<p><strong>Posiadane komponenty:</strong><br>" . nl2br(htmlspecialchars($_POST['components'])) . "</p>";
-                $message .= "<p><strong>Wymagania dotyczące składania:</strong><br>" . nl2br(htmlspecialchars($_POST['requirements'])) . "</p>";
-                if (!empty($_POST['budget'])) {
-                    $message .= "<p><strong>Przewidywany budżet:</strong> " . htmlspecialchars($_POST['budget']) . "</p>";
-                }
-                break;
-                
-            case 'repair':
-                $subject = "Zapytanie o naprawę - " . $_POST['name'];
-                $message .= "<h3>Zapytanie o naprawę komputera</h3>";
-                $message .= "<p><strong>Imię i nazwisko:</strong> " . htmlspecialchars($_POST['name']) . "</p>";
-                $message .= "<p><strong>E-mail:</strong> " . htmlspecialchars($_POST['email']) . "</p>";
-                $message .= "<p><strong>Telefon:</strong> " . htmlspecialchars($_POST['phone']) . "</p>";
-                $message .= "<p><strong>Typ urządzenia:</strong> " . htmlspecialchars($_POST['device_type']) . "</p>";
-                $message .= "<p><strong>Opis problemu:</strong><br>" . nl2br(htmlspecialchars($_POST['problem'])) . "</p>";
-                if (!empty($_POST['specifications'])) {
-                    $message .= "<p><strong>Konfiguracja:</strong><br>" . nl2br(htmlspecialchars($_POST['specifications'])) . "</p>";
-                }
-                break;
-                
-            case 'boost':
-                $subject = "Zapytanie o optymalizację - " . $_POST['name'];
-                $message .= "<h3>Zapytanie o optymalizację komputera</h3>";
-                $message .= "<p><strong>Imię i nazwisko:</strong> " . htmlspecialchars($_POST['name']) . "</p>";
-                $message .= "<p><strong>E-mail:</strong> " . htmlspecialchars($_POST['email']) . "</p>";
-                $message .= "<p><strong>Telefon:</strong> " . htmlspecialchars($_POST['phone'] ?? 'nie podano') . "</p>";
-                $message .= "<p><strong>Przeznaczenie:</strong> " . htmlspecialchars($_POST['purpose']) . "</p>";
-                $message .= "<p><strong>Aktualna konfiguracja:</strong><br>" . nl2br(htmlspecialchars($_POST['specifications'])) . "</p>";
-                $message .= "<p><strong>Oczekiwania:</strong><br>" . nl2br(htmlspecialchars($_POST['expectations'])) . "</p>";
-                break;
-                
-            case 'contact':
-                $subject = "Wiadomość ze strony - " . $_POST['name'];
-                $message .= "<h3>Wiadomość kontaktowa</h3>";
-                $message .= "<p><strong>Imię i nazwisko:</strong> " . htmlspecialchars($_POST['name']) . "</p>";
-                $message .= "<p><strong>E-mail:</strong> " . htmlspecialchars($_POST['email']) . "</p>";
-                $message .= "<p><strong>Telefon:</strong> " . htmlspecialchars($_POST['phone'] ?? 'nie podano') . "</p>";
-                $message .= "<p><strong>Wiadomość:</strong><br>" . nl2br(htmlspecialchars($_POST['message'])) . "</p>";
-                break;
-                
-            default:
-                $subject = "Nowe zgłoszenie ze strony";
-                $message .= "<p>Nieznany typ formularza. Oto przesłane dane:</p>";
-                foreach ($_POST as $key => $value) {
-                    if ($key != 'form_type') {
-                        $message .= "<p><strong>" . htmlspecialchars($key) . ":</strong> " . htmlspecialchars($value) . "</p>";
-                    }
-                }
-        }
-        
-        $message .= "<hr>";
-        $message .= "<p><em>Wiadomość wysłana automatycznie ze strony PC Serwis</em></p>";
-        $message .= "</body></html>";
-        
-        // Headers
-        $headers = "MIME-Version: 1.0" . "\r\n";
-        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-        $headers .= "From: PC Serwis <noreply@konradkomputery.pl>" . "\r\n";
-        $headers .= "Reply-To: " . $_POST['email'] . "\r\n";
-        
-        // Send email
-        if (mail($to, $subject, $message, $headers)) {
-            // Email sent successfully
-            echo '<script>console.log("Email sent successfully");</script>';
-        } else {
-            // Email failed to send
-            echo '<script>console.log("Failed to send email");</script>';
-        }
-    }
-    ?>
 </body>
 </html>
