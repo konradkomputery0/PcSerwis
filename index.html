@@ -1,0 +1,1547 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC Serwis - Składanie, naprawy, optymalizacja komputerów</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0a0e17;
+            --secondary: #00d9ff;
+            --accent: #ff005e;
+            --dark: #070a12;
+            --light: #f5f5f5;
+            --gray: #2a2e38;
+            --success: #00ff9d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--primary);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header */
+        header {
+            background-color: rgba(10, 14, 23, 0.95);
+            padding: 1.5rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-icon {
+            color: var(--secondary);
+            font-size: 2rem;
+        }
+        
+        .logo-text {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 1.8rem;
+            background: linear-gradient(45deg, var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        nav a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 5px 0;
+            position: relative;
+        }
+        
+        nav a:hover {
+            color: var(--secondary);
+        }
+        
+        nav a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary);
+            transition: width 0.3s;
+        }
+        
+        nav a:hover:after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 180px 0 100px;
+            background: linear-gradient(135deg, rgba(10, 14, 23, 0.9) 0%, rgba(7, 10, 18, 0.95) 100%), 
+                        url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            color: #ccc;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--secondary), var(--accent));
+            color: var(--light);
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 217, 255, 0.3);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 217, 255, 0.4);
+        }
+        
+        /* Services Section */
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--secondary);
+        }
+        
+        section {
+            padding: 80px 0;
+        }
+        
+        /* Services Selection */
+        .services-selection {
+            background-color: var(--dark);
+            padding: 80px 0;
+        }
+        
+        .services-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .service-tab {
+            background-color: var(--gray);
+            border: none;
+            color: var(--light);
+            padding: 20px 40px;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .service-tab:hover {
+            background-color: rgba(0, 217, 255, 0.2);
+        }
+        
+        .service-tab.active {
+            background: linear-gradient(45deg, var(--secondary), var(--accent));
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 217, 255, 0.3);
+        }
+        
+        .service-tab i {
+            font-size: 1.5rem;
+        }
+        
+        .service-form-container {
+            background-color: var(--gray);
+            border-radius: 10px;
+            padding: 40px;
+            min-height: 500px;
+        }
+        
+        .service-form {
+            display: none;
+        }
+        
+        .service-form.active {
+            display: block;
+        }
+        
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--secondary);
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 15px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            color: var(--light);
+            font-family: 'Roboto', sans-serif;
+            font-size: 1rem;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--secondary);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .component-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .component-card {
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .component-card:hover {
+            border-color: var(--secondary);
+            transform: translateY(-5px);
+        }
+        
+        .component-card.selected {
+            border-color: var(--accent);
+            background-color: rgba(255, 0, 94, 0.1);
+        }
+        
+        .component-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+        
+        .component-name {
+            font-weight: bold;
+            color: var(--secondary);
+            font-size: 1.1rem;
+        }
+        
+        .component-price {
+            color: var(--success);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .component-desc {
+            color: #aaa;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        
+        .component-select {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .component-select input {
+            width: auto;
+            margin: 0;
+        }
+        
+        .assembly-service {
+            background-color: rgba(0, 217, 255, 0.1);
+            border: 2px solid var(--secondary);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+        
+        .assembly-price {
+            font-size: 1.5rem;
+            color: var(--success);
+            font-weight: bold;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .total-price {
+            font-size: 1.8rem;
+            color: var(--success);
+            font-weight: bold;
+            text-align: right;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .submit-btn {
+            background: linear-gradient(45deg, var(--secondary), var(--accent));
+            color: var(--light);
+            border: none;
+            padding: 18px 50px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1.1rem;
+            transition: transform 0.3s;
+            margin-top: 30px;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-5px);
+        }
+        
+        .form-note {
+            background-color: rgba(0, 217, 255, 0.1);
+            border-left: 4px solid var(--secondary);
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 0 5px 5px 0;
+            font-size: 0.9rem;
+        }
+        
+        /* Gallery */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .gallery-item {
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            height: 250px;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            padding: 20px;
+            transform: translateY(100%);
+            transition: transform 0.5s;
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+        
+        /* Contact */
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .contact-form {
+            background-color: var(--gray);
+            padding: 30px;
+            border-radius: 10px;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        
+        .info-icon {
+            color: var(--secondary);
+            font-size: 1.5rem;
+            margin-top: 5px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            padding: 60px 0 30px;
+            border-top: 1px solid var(--gray);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+        
+        .footer-links h4 {
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--gray);
+            border-radius: 50%;
+            color: var(--light);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--secondary);
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid var(--gray);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary);
+                padding: 20px;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            }
+            
+            nav.active {
+                display: block;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+            
+            .services-tabs {
+                flex-direction: column;
+            }
+            
+            .service-tab {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .component-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero {
+                padding: 150px 0 80px;
+            }
+            
+            .service-form-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <div class="logo-icon"><i class="fas fa-desktop"></i></div>
+                <div class="logo-text">PC SERWIS</div>
+            </div>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#services">Usługi</a></li>
+                    <li><a href="#gallery">Realizacje</a></li>
+                    <li><a href="#contact">Kontakt</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Profesjonalny serwis komputerowy</h1>
+            <p>Specjalizujemy się w składaniu komputerów na zamówienie, naprawach i optymalizacji systemów. Doświadczony zespół, rzetelna diagnoza i solidne wykonanie.</p>
+            <a href="#services" class="cta-button">Wybierz usługę</a>
+        </div>
+    </section>
+
+    <!-- Services Selection -->
+    <section class="services-selection" id="services">
+        <div class="container">
+            <h2 class="section-title">Nasze Usługi</h2>
+            
+            <div class="services-tabs">
+                <button class="service-tab active" data-service="order">
+                    <i class="fas fa-desktop"></i>
+                    <span>Zamów komputer</span>
+                </button>
+                <button class="service-tab" data-service="repair">
+                    <i class="fas fa-tools"></i>
+                    <span>Napraw komputer</span>
+                </button>
+                <button class="service-tab" data-service="boost">
+                    <i class="fas fa-rocket"></i>
+                    <span>Zboostuj komputer</span>
+                </button>
+            </div>
+            
+            <div class="service-form-container">
+                <!-- Zamów komputer -->
+                <div class="service-form active" id="order-form">
+                    <h3>Zamów komputer na zamówienie</h3>
+                    <p>Wybierz komponenty, a my złożymy dla Ciebie idealny komputer. Usługa składania jest obowiązkowa.</p>
+                    
+                    <div class="form-group">
+                        <label for="order-name">Imię i nazwisko *</label>
+                        <input type="text" id="order-name" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="order-email">Adres e-mail *</label>
+                            <input type="email" id="order-email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="order-phone">Numer telefonu</label>
+                            <input type="tel" id="order-phone">
+                        </div>
+                    </div>
+                    
+                    <h4>Wybierz komponenty:</h4>
+                    
+                    <!-- Procesor -->
+                    <div class="component-category">
+                        <h4>Procesor (CPU)</h4>
+                        <div class="component-grid" id="cpu-selection">
+                            <!-- CPU options will be loaded by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <!-- Karta graficzna -->
+                    <div class="component-category">
+                        <h4>Karta graficzna (GPU)</h4>
+                        <div class="component-grid" id="gpu-selection">
+                            <!-- GPU options will be loaded by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <!-- Płyta główna -->
+                    <div class="component-category">
+                        <h4>Płyta główna</h4>
+                        <div class="component-grid" id="motherboard-selection">
+                            <!-- Motherboard options will be loaded by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <!-- Pamięć RAM -->
+                    <div class="component-category">
+                        <h4>Pamięć RAM</h4>
+                        <div class="component-grid" id="ram-selection">
+                            <!-- RAM options will be loaded by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <!-- Dysk -->
+                    <div class="component-category">
+                        <h4>Dysk twardy / SSD</h4>
+                        <div class="component-grid" id="storage-selection">
+                            <!-- Storage options will be loaded by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <!-- Obowiązkowa usługa składania -->
+                    <div class="assembly-service">
+                        <h4>Usługa składania komputera (obowiązkowa)</h4>
+                        <p>Profesjonalny montaż wszystkich komponentów, okablowanie, testy stabilności i optymalizacja.</p>
+                        <div class="assembly-price">Cena: 399 zł</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="order-notes">Dodatkowe uwagi / preferencje</label>
+                        <textarea id="order-notes" rows="4" placeholder="Opisz szczególne wymagania, preferowany budżet, termin realizacji, etc."></textarea>
+                    </div>
+                    
+                    <div class="total-price">
+                        Łączna cena: <span id="total-price">399 zł</span>
+                    </div>
+                    
+                    <button class="submit-btn" id="order-submit">Wyślij zamówienie mailem</button>
+                    
+                    <div class="form-note">
+                        <p><i class="fas fa-info-circle"></i> Po kliknięciu przycisku otworzy się Twoja skrzynka pocztowa z wypełnionym formularzem. Wyślij wiadomość, aby przesłać nam zamówienie.</p>
+                    </div>
+                </div>
+                
+                <!-- Napraw komputer -->
+                <div class="service-form" id="repair-form">
+                    <h3>Naprawa komputera</h3>
+                    <p>Opisz problem z Twoim komputerem, a skontaktujemy się w celu diagnozy i wyceny naprawy.</p>
+                    
+                    <div class="form-group">
+                        <label for="repair-name">Imię i nazwisko *</label>
+                        <input type="text" id="repair-name" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="repair-email">Adres e-mail *</label>
+                            <input type="email" id="repair-email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="repair-phone">Numer telefonu *</label>
+                            <input type="tel" id="repair-phone" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="repair-type">Typ urządzenia *</label>
+                        <select id="repair-type" required>
+                            <option value="">Wybierz typ urządzenia</option>
+                            <option value="desktop">Komputer stacjonarny (PC)</option>
+                            <option value="laptop">Laptop</option>
+                            <option value="workstation">Stacja robocza</option>
+                            <option value="other">Inne</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="repair-problem">Opisz problem *</label>
+                        <textarea id="repair-problem" rows="6" required placeholder="Opisz szczegółowo problem, objawy, kiedy się pojawił, czy podejmowałeś już próby naprawy, etc."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="repair-specs">Konfiguracja / podzespoły (opcjonalnie)</label>
+                        <textarea id="repair-specs" rows="4" placeholder="Podaj specyfikację komputera jeśli znasz (procesor, karta graficzna, itp.)"></textarea>
+                    </div>
+                    
+                    <button class="submit-btn" id="repair-submit">Wyślij zapytanie o naprawę mailem</button>
+                    
+                    <div class="form-note">
+                        <p><i class="fas fa-info-circle"></i> Po kliknięciu przycisku otworzy się Twoja skrzynka pocztowa z wypełnionym formularzem. Wyślij wiadomość, aby przesłać nam zapytanie o naprawę.</p>
+                    </div>
+                </div>
+                
+                <!-- Zboostuj komputer -->
+                <div class="service-form" id="boost-form">
+                    <h3>Optymalizacja i przyspieszenie komputera</h3>
+                    <p>Opisz swoją konfigurację i czego oczekujesz od optymalizacji. Przygotujemy ofertę dostosowaną do Twoich potrzeb.</p>
+                    
+                    <div class="form-group">
+                        <label for="boost-name">Imię i nazwisko *</label>
+                        <input type="text" id="boost-name" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="boost-email">Adres e-mail *</label>
+                            <input type="email" id="boost-email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="boost-phone">Numer telefonu</label>
+                            <input type="tel" id="boost-phone">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="boost-purpose">Główne przeznaczenie komputera *</label>
+                        <select id="boost-purpose" required>
+                            <option value="">Wybierz przeznaczenie</option>
+                            <option value="gaming">Gry komputerowe</option>
+                            <option value="work">Praca biurowa</option>
+                            <option value="design">Projektowanie graficzne / 3D</option>
+                            <option value="video">Montaż wideo</option>
+                            <option value="streaming">Streaming / transmisje</option>
+                            <option value="other">Inne</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="boost-specs">Aktualna konfiguracja komputera *</label>
+                        <textarea id="boost-specs" rows="6" required placeholder="Opisz szczegółowo konfigurację swojego komputera (procesor, karta graficzna, pamięć RAM, dyski, płyta główna, zasilacz, etc.)"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="boost-expectations">Czego oczekujesz od optymalizacji? *</label>
+                        <textarea id="boost-expectations" rows="4" required placeholder="Opisz co chcesz osiągnąć (większa płynność w grach, szybsze renderowanie, ogólne przyspieszenie systemu, etc.)"></textarea>
+                    </div>
+                    
+                    <button class="submit-btn" id="boost-submit">Wyślij zapytanie o optymalizację mailem</button>
+                    
+                    <div class="form-note">
+                        <p><i class="fas fa-info-circle"></i> Po kliknięciu przycisku otworzy się Twoja skrzynka pocztowa z wypełnionym formularzem. Wyślij wiadomość, aby przesłać nam zapytanie o optymalizację.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section id="gallery">
+        <div class="container">
+            <h2 class="section-title">Nasze Realizacje</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1593640408182-31c70c8268f5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Gaming PC">
+                    <div class="gallery-overlay">
+                        <h4>PC do gier</h4>
+                        <p>Pełna personalizacja RGB</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Workstation PC">
+                    <div class="gallery-overlay">
+                        <h4>Naprawa laptopa</h4>
+                        <p>Wymiana matrycy i czyszczenie</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1587202372634-32705e3bf49c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Compact PC">
+                    <div class="gallery-overlay">
+                        <h4>Optymalizacja</h4>
+                        <p>Przyspieszenie działania systemu</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">Kontakt</h2>
+            <div class="contact-container">
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Imię i nazwisko</label>
+                            <input type="text" id="name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Adres e-mail</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Numer telefonu</label>
+                            <input type="tel" id="phone">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Wiadomość</label>
+                            <textarea id="message" rows="5" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">Wyślij wiadomość</button>
+                    </form>
+                </div>
+                
+                <div class="contact-info">
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h4>Adres serwisu</h4>
+                            <p>ul. Technologiczna 15/7<br>00-001 Warszawa</p>
+                            <p><small>(działamy na terenie całego kraju - wysyłka kurierem)</small></p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <h4>Telefon</h4>
+                            <p>+48 123 456 789</p>
+                            <p>Pn-Pt: 9:00-18:00<br>Sb: 10:00-14:00</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h4>E-mail</h4>
+                            <p>serwis@pcserwis.pl</p>
+                            <p>zamowienia@pcserwis.pl</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <h4>Czas realizacji</h4>
+                            <p>Naprawy: 1-3 dni robocze</p>
+                            <p>Składanie PC: 3-7 dni roboczych</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">PC SERWIS</div>
+                    <p>Profesjonalny serwis komputerowy specjalizujący się w składaniu komputerów na zamówienie, naprawach i optymalizacji systemów. Działamy od 2015 roku.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Szybkie linki</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#services">Usługi</a></li>
+                        <li><a href="#gallery">Realizacje</a></li>
+                        <li><a href="#contact">Kontakt</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Usługi</h4>
+                    <ul>
+                        <li><a href="#services" data-service="order">Zamów komputer</a></li>
+                        <li><a href="#services" data-service="repair">Napraw komputer</a></li>
+                        <li><a href="#services" data-service="boost">Zboostuj komputer</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 PC Serwis - Składanie, naprawy, optymalizacja komputerów. Wszelkie prawa zastrzeżone.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.getElementById('mainNav');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+            mobileMenuBtn.innerHTML = mainNav.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a, .footer-links a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Handle service links in footer
+                if (this.hasAttribute('data-service')) {
+                    const service = this.getAttribute('data-service');
+                    switchService(service);
+                }
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+                
+                // Close mobile menu if open
+                if (mainNav.classList.contains('active')) {
+                    mainNav.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+        });
+        
+        // Service tabs functionality
+        const serviceTabs = document.querySelectorAll('.service-tab');
+        const serviceForms = document.querySelectorAll('.service-form');
+        
+        function switchService(service) {
+            // Update active tab
+            serviceTabs.forEach(tab => {
+                if (tab.getAttribute('data-service') === service) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+            
+            // Show active form
+            serviceForms.forEach(form => {
+                if (form.id === `${service}-form`) {
+                    form.classList.add('active');
+                } else {
+                    form.classList.remove('active');
+                }
+            });
+            
+            // Update total price for order form
+            if (service === 'order') {
+                updateTotalPrice();
+            }
+        }
+        
+        serviceTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const service = tab.getAttribute('data-service');
+                switchService(service);
+            });
+        });
+        
+        // Component data with prices
+        const components = {
+            cpus: [
+                { id: 'i3-12100', name: 'Intel Core i3-12100F', price: 549, desc: '4 rdzenie, 3.3 GHz' },
+                { id: 'i5-12400', name: 'Intel Core i5-12400F', price: 849, desc: '6 rdzeni, 2.5 GHz' },
+                { id: 'i5-13400', name: 'Intel Core i5-13400F', price: 1049, desc: '10 rdzeni, 2.5 GHz' },
+                { id: 'i7-13700', name: 'Intel Core i7-13700KF', price: 1899, desc: '16 rdzeni, 3.4 GHz' },
+                { id: 'i9-13900', name: 'Intel Core i9-13900KF', price: 2699, desc: '24 rdzenie, 3.0 GHz' },
+                { id: 'r5-5600', name: 'AMD Ryzen 5 5600X', price: 899, desc: '6 rdzeni, 3.7 GHz' },
+                { id: 'r7-5800', name: 'AMD Ryzen 7 5800X3D', price: 1499, desc: '8 rdzeni, 3.4 GHz' },
+                { id: 'r7-7700', name: 'AMD Ryzen 7 7700X', price: 1699, desc: '8 rdzeni, 4.5 GHz' },
+                { id: 'r9-7900', name: 'AMD Ryzen 9 7900X', price: 2399, desc: '12 rdzeni, 4.7 GHz' },
+                { id: 'r9-7950', name: 'AMD Ryzen 9 7950X3D', price: 3399, desc: '16 rdzeni, 4.2 GHz' }
+            ],
+            gpus: [
+                { id: 'rtx3050', name: 'NVIDIA RTX 3050 8GB', price: 1199, desc: 'Do gier w 1080p' },
+                { id: 'rtx3060', name: 'NVIDIA RTX 3060 12GB', price: 1699, desc: 'Do gier w 1080p/1440p' },
+                { id: 'rtx4060', name: 'NVIDIA RTX 4060 8GB', price: 1799, desc: 'Do gier w 1080p, DLSS 3' },
+                { id: 'rtx4070', name: 'NVIDIA RTX 4070 12GB', price: 3299, desc: 'Do gier w 1440p, DLSS 3' },
+                { id: 'rtx4080', name: 'NVIDIA RTX 4080 16GB', price: 5899, desc: 'Do gier w 4K, DLSS 3' },
+                { id: 'rtx4090', name: 'NVIDIA RTX 4090 24GB', price: 8499, desc: 'Topowa wydajność 4K' },
+                { id: 'rx6600', name: 'AMD Radeon RX 6600 XT', price: 1399, desc: 'Do gier w 1080p' },
+                { id: 'rx6700', name: 'AMD Radeon RX 6700 XT', price: 1999, desc: 'Do gier w 1440p' },
+                { id: 'rx6800', name: 'AMD Radeon RX 6800 XT', price: 3299, desc: 'Do gier w 1440p/4K' },
+                { id: 'rx7900', name: 'AMD Radeon RX 7900 XTX', price: 5299, desc: 'Topowa wydajność AMD' }
+            ],
+            motherboards: [
+                { id: 'b660', name: 'Gigabyte B660 GAMING X', price: 699, desc: 'Socket LGA1700, DDR4' },
+                { id: 'z790', name: 'MSI Z790-A PRO', price: 1199, desc: 'Socket LGA1700, DDR5' },
+                { id: 'b650', name: 'ASUS TUF GAMING B650-PLUS', price: 999, desc: 'Socket AM5, DDR5' },
+                { id: 'x670', name: 'Gigabyte X670 GAMING X', price: 1499, desc: 'Socket AM5, DDR5' },
+                { id: 'z790e', name: 'ASUS ROG STRIX Z790-E', price: 1899, desc: 'Socket LGA1700, WiFi 6E' },
+                { id: 'x670e', name: 'ASUS ROG STRIX X670E-E', price: 1999, desc: 'Socket AM5, WiFi 6E' }
+            ],
+            rams: [
+                { id: 'ram16', name: '16GB DDR4 3200MHz', price: 299, desc: '2x8GB, CL16' },
+                { id: 'ram32d4', name: '32GB DDR4 3600MHz', price: 499, desc: '2x16GB, CL18' },
+                { id: 'ram32d5', name: '32GB DDR5 6000MHz', price: 799, desc: '2x16GB, CL30' },
+                { id: 'ram64d5', name: '64GB DDR5 6400MHz', price: 1599, desc: '2x32GB, CL32' },
+                { id: 'ram32rgb', name: '32GB DDR5 6000MHz RGB', price: 999, desc: '2x16GB, CL30, RGB' }
+            ],
+            storages: [
+                { id: 'ssd512', name: 'SSD 512GB M.2 NVMe', price: 199, desc: 'Szybki dysk systemowy' },
+                { id: 'ssd1tb', name: 'SSD 1TB M.2 NVMe', price: 299, desc: 'Do systemu i gier' },
+                { id: 'ssd2tb', name: 'SSD 2TB M.2 NVMe', price: 599, desc: 'Duża pojemność NVMe' },
+                { id: 'hdd1tb', name: 'HDD 1TB 7200RPM', price: 199, desc: 'Dysk danych' },
+                { id: 'hdd2tb', name: 'HDD 2TB 7200RPM', price: 299, desc: 'Duży dysk danych' },
+                { id: 'hdd4tb', name: 'HDD 4TB 7200RPM', price: 499, desc: 'Bardzo duży dysk danych' }
+            ]
+        };
+        
+        // Selected components for order
+        const selectedComponents = {
+            cpu: null,
+            gpu: null,
+            motherboard: null,
+            ram: null,
+            storage: null
+        };
+        
+        // Initialize component selection
+        function initializeComponentSelection() {
+            // CPUs
+            const cpuContainer = document.getElementById('cpu-selection');
+            components.cpus.forEach(cpu => {
+                cpuContainer.innerHTML += `
+                    <div class="component-card" data-id="${cpu.id}" data-type="cpu">
+                        <div class="component-header">
+                            <div class="component-name">${cpu.name}</div>
+                            <div class="component-price">${cpu.price} zł</div>
+                        </div>
+                        <div class="component-desc">${cpu.desc}</div>
+                        <div class="component-select">
+                            <input type="radio" name="cpu" id="cpu-${cpu.id}" value="${cpu.id}">
+                            <label for="cpu-${cpu.id}">Wybierz</label>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            // GPUs
+            const gpuContainer = document.getElementById('gpu-selection');
+            components.gpus.forEach(gpu => {
+                gpuContainer.innerHTML += `
+                    <div class="component-card" data-id="${gpu.id}" data-type="gpu">
+                        <div class="component-header">
+                            <div class="component-name">${gpu.name}</div>
+                            <div class="component-price">${gpu.price} zł</div>
+                        </div>
+                        <div class="component-desc">${gpu.desc}</div>
+                        <div class="component-select">
+                            <input type="radio" name="gpu" id="gpu-${gpu.id}" value="${gpu.id}">
+                            <label for="gpu-${gpu.id}">Wybierz</label>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            // Motherboards
+            const mbContainer = document.getElementById('motherboard-selection');
+            components.motherboards.forEach(mb => {
+                mbContainer.innerHTML += `
+                    <div class="component-card" data-id="${mb.id}" data-type="motherboard">
+                        <div class="component-header">
+                            <div class="component-name">${mb.name}</div>
+                            <div class="component-price">${mb.price} zł</div>
+                        </div>
+                        <div class="component-desc">${mb.desc}</div>
+                        <div class="component-select">
+                            <input type="radio" name="motherboard" id="mb-${mb.id}" value="${mb.id}">
+                            <label for="mb-${mb.id}">Wybierz</label>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            // RAM
+            const ramContainer = document.getElementById('ram-selection');
+            components.rams.forEach(ram => {
+                ramContainer.innerHTML += `
+                    <div class="component-card" data-id="${ram.id}" data-type="ram">
+                        <div class="component-header">
+                            <div class="component-name">${ram.name}</div>
+                            <div class="component-price">${ram.price} zł</div>
+                        </div>
+                        <div class="component-desc">${ram.desc}</div>
+                        <div class="component-select">
+                            <input type="radio" name="ram" id="ram-${ram.id}" value="${ram.id}">
+                            <label for="ram-${ram.id}">Wybierz</label>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            // Storage
+            const storageContainer = document.getElementById('storage-selection');
+            components.storages.forEach(storage => {
+                storageContainer.innerHTML += `
+                    <div class="component-card" data-id="${storage.id}" data-type="storage">
+                        <div class="component-header">
+                            <div class="component-name">${storage.name}</div>
+                            <div class="component-price">${storage.price} zł</div>
+                        </div>
+                        <div class="component-desc">${storage.desc}</div>
+                        <div class="component-select">
+                            <input type="radio" name="storage" id="storage-${storage.id}" value="${storage.id}">
+                            <label for="storage-${storage.id}">Wybierz</label>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            // Add event listeners to component cards
+            document.querySelectorAll('.component-card').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    // Don't trigger if clicking on radio or label
+                    if (e.target.tagName === 'INPUT' || e.target.tagName === 'LABEL') return;
+                    
+                    const type = card.getAttribute('data-type');
+                    const id = card.getAttribute('data-id');
+                    const radio = card.querySelector('input[type="radio"]');
+                    
+                    // Toggle selection
+                    if (radio) {
+                        radio.checked = !radio.checked;
+                        if (radio.checked) {
+                            card.classList.add('selected');
+                            selectedComponents[type] = id;
+                        } else {
+                            card.classList.remove('selected');
+                            selectedComponents[type] = null;
+                        }
+                        
+                        // Update total price
+                        updateTotalPrice();
+                    }
+                });
+            });
+            
+            // Add event listeners to radio buttons
+            document.querySelectorAll('.component-card input[type="radio"]').forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    const card = e.target.closest('.component-card');
+                    const type = card.getAttribute('data-type');
+                    const id = card.getAttribute('data-id');
+                    
+                    // Deselect all cards of this type
+                    document.querySelectorAll(`.component-card[data-type="${type}"]`).forEach(c => {
+                        c.classList.remove('selected');
+                    });
+                    
+                    // Select current card
+                    if (e.target.checked) {
+                        card.classList.add('selected');
+                        selectedComponents[type] = id;
+                    } else {
+                        selectedComponents[type] = null;
+                    }
+                    
+                    // Update total price
+                    updateTotalPrice();
+                });
+            });
+        }
+        
+        // Update total price
+        function updateTotalPrice() {
+            const assemblyPrice = 399;
+            let componentsPrice = 0;
+            
+            // Calculate components price
+            for (const [type, id] of Object.entries(selectedComponents)) {
+                if (id) {
+                    let componentArray;
+                    switch(type) {
+                        case 'cpu': componentArray = components.cpus; break;
+                        case 'gpu': componentArray = components.gpus; break;
+                        case 'motherboard': componentArray = components.motherboards; break;
+                        case 'ram': componentArray = components.rams; break;
+                        case 'storage': componentArray = components.storages; break;
+                    }
+                    
+                    if (componentArray) {
+                        const component = componentArray.find(c => c.id === id);
+                        if (component) {
+                            componentsPrice += component.price;
+                        }
+                    }
+                }
+            }
+            
+            const totalPrice = assemblyPrice + componentsPrice;
+            document.getElementById('total-price').textContent = `${totalPrice} zł`;
+        }
+        
+        // Send order by email
+        function sendOrderByEmail() {
+            const name = document.getElementById('order-name').value;
+            const email = document.getElementById('order-email').value;
+            const phone = document.getElementById('order-phone').value;
+            const notes = document.getElementById('order-notes').value;
+            
+            if (!name || !email) {
+                alert('Proszę wypełnić wymagane pola: imię i nazwisko oraz e-mail.');
+                return;
+            }
+            
+            // Prepare email content
+            const subject = `Zamówienie komputera - ${name}`;
+            
+            let body = `Zamówienie komputera na zamówienie:\n\n`;
+            body += `Imię i nazwisko: ${name}\n`;
+            body += `E-mail: ${email}\n`;
+            body += `Telefon: ${phone || 'nie podano'}\n\n`;
+            
+            body += `Wybrane komponenty:\n`;
+            
+            // Add selected components
+            let totalPrice = 399; // Assembly price
+            for (const [type, id] of Object.entries(selectedComponents)) {
+                if (id) {
+                    let componentArray, typeName;
+                    switch(type) {
+                        case 'cpu': 
+                            componentArray = components.cpus;
+                            typeName = 'Procesor';
+                            break;
+                        case 'gpu': 
+                            componentArray = components.gpus;
+                            typeName = 'Karta graficzna';
+                            break;
+                        case 'motherboard': 
+                            componentArray = components.motherboards;
+                            typeName = 'Płyta główna';
+                            break;
+                        case 'ram': 
+                            componentArray = components.rams;
+                            typeName = 'Pamięć RAM';
+                            break;
+                        case 'storage': 
+                            componentArray = components.storages;
+                            typeName = 'Dysk';
+                            break;
+                    }
+                    
+                    if (componentArray) {
+                        const component = componentArray.find(c => c.id === id);
+                        if (component) {
+                            body += `${typeName}: ${component.name} - ${component.price} zł\n`;
+                            totalPrice += component.price;
+                        }
+                    }
+                }
+            }
+            
+            body += `Usługa składania: 399 zł\n\n`;
+            body += `Łączna cena: ${totalPrice} zł\n\n`;
+            
+            if (notes) {
+                body += `Dodatkowe uwagi:\n${notes}\n\n`;
+            }
+            
+            body += `---\nWiadomość wysłana ze strony PC Serwis`;
+            
+            // Create mailto link
+            const mailtoLink = `mailto:zamowienia@pcserwis.pl?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            
+            // Open email client
+            window.open(mailtoLink, '_blank');
+        }
+        
+        // Send repair request by email
+        function sendRepairByEmail() {
+            const name = document.getElementById('repair-name').value;
+            const email = document.getElementById('repair-email').value;
+            const phone = document.getElementById('repair-phone').value;
+            const type = document.getElementById('repair-type').value;
+            const problem = document.getElementById('repair-problem').value;
+            const specs = document.getElementById('repair-specs').value;
+            
+            if (!name || !email || !phone || !type || !problem) {
+                alert('Proszę wypełnić wszystkie wymagane pola.');
+                return;
+            }
+            
+            // Prepare email content
+            const subject = `Zapytanie o naprawę - ${name}`;
+            
+            let body = `Zapytanie o naprawę komputera:\n\n`;
+            body += `Imię i nazwisko: ${name}\n`;
+            body += `E-mail: ${email}\n`;
+            body += `Telefon: ${phone}\n`;
+            body += `Typ urządzenia: ${document.getElementById('repair-type').options[document.getElementById('repair-type').selectedIndex].text}\n\n`;
+            
+            body += `Opis problemu:\n${problem}\n\n`;
+            
+            if (specs) {
+                body += `Konfiguracja:\n${specs}\n\n`;
+            }
+            
+            body += `---\nWiadomość wysłana ze strony PC Serwis`;
+            
+            // Create mailto link
+            const mailtoLink = `mailto:serwis@pcserwis.pl?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            
+            // Open email client
+            window.open(mailtoLink, '_blank');
+        }
+        
+        // Send boost request by email
+        function sendBoostByEmail() {
+            const name = document.getElementById('boost-name').value;
+            const email = document.getElementById('boost-email').value;
+            const phone = document.getElementById('boost-phone').value;
+            const purpose = document.getElementById('boost-purpose').value;
+            const specs = document.getElementById('boost-specs').value;
+            const expectations = document.getElementById('boost-expectations').value;
+            
+            if (!name || !email || !purpose || !specs || !expectations) {
+                alert('Proszę wypełnić wszystkie wymagane pola.');
+                return;
+            }
+            
+            // Prepare email content
+            const subject = `Zapytanie o optymalizację - ${name}`;
+            
+            let body = `Zapytanie o optymalizację komputera:\n\n`;
+            body += `Imię i nazwisko: ${name}\n`;
+            body += `E-mail: ${email}\n`;
+            body += `Telefon: ${phone || 'nie podano'}\n`;
+            body += `Przeznaczenie: ${document.getElementById('boost-purpose').options[document.getElementById('boost-purpose').selectedIndex].text}\n\n`;
+            
+            body += `Aktualna konfiguracja:\n${specs}\n\n`;
+            body += `Oczekiwania od optymalizacji:\n${expectations}\n\n`;
+            
+            body += `---\nWiadomość wysłana ze strony PC Serwis`;
+            
+            // Create mailto link
+            const mailtoLink = `mailto:serwis@pcserwis.pl?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            
+            // Open email client
+            window.open(mailtoLink, '_blank');
+        }
+        
+        // Send contact form by email
+        function sendContactByEmail() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const message = document.getElementById('message').value;
+            
+            if (!name || !email || !message) {
+                alert('Proszę wypełnić wymagane pola: imię i nazwisko, e-mail i wiadomość.');
+                return;
+            }
+            
+            // Prepare email content
+            const subject = `Wiadomość ze strony - ${name}`;
+            
+            let body = `Wiadomość ze strony PC Serwis:\n\n`;
+            body += `Imię i nazwisko: ${name}\n`;
+            body += `E-mail: ${email}\n`;
+            body += `Telefon: ${phone || 'nie podano'}\n\n`;
+            
+            body += `Wiadomość:\n${message}\n\n`;
+            
+            body += `---\nWiadomość wysłana ze strony PC Serwis`;
+            
+            // Create mailto link
+            const mailtoLink = `mailto:kontakt@pcserwis.pl?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            
+            // Open email client
+            window.open(mailtoLink, '_blank');
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeComponentSelection();
+            updateTotalPrice();
+            
+            // Order submit
+            document.getElementById('order-submit').addEventListener('click', (e) => {
+                e.preventDefault();
+                sendOrderByEmail();
+            });
+            
+            // Repair submit
+            document.getElementById('repair-submit').addEventListener('click', (e) => {
+                e.preventDefault();
+                sendRepairByEmail();
+            });
+            
+            // Boost submit
+            document.getElementById('boost-submit').addEventListener('click', (e) => {
+                e.preventDefault();
+                sendBoostByEmail();
+            });
+            
+            // Contact submit
+            document.getElementById('contactForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                sendContactByEmail();
+            });
+        });
+    </script>
+</body>
+</html>
